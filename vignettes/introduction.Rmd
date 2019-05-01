@@ -1,0 +1,37 @@
+---
+title: "Vignette Title"
+author: "Vignette Author"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r}
+keys_coords
+```
+
+```{r}
+ggpiano()
+```
+
+```{r}
+chrd_D <- keys_major_chord("D")
+chrd_D
+```
+
+```{r}
+ggchord(chrd_D)
+```
+
+
+

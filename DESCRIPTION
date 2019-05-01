@@ -1,0 +1,22 @@
+Package: pichor
+Type: Package
+Title: Piano chords in R
+Description: Utilities for working with piano chords in R
+Version: 0.0.0.9001
+Authors@R: c(
+    person(given = "Mikkel Meyer", family = "Andersen", 
+        email = "mikl@math.aau.dk", role = c("aut", "cre"))
+  )
+Maintainer: Mikkel Meyer Andersen <mikl@math.aau.dk>
+License: GPL (>= 2)
+Imports:
+    magrittr
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.1
+VignetteBuilder: knitr
