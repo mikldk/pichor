@@ -8,6 +8,10 @@ ggpiano(data = get_keys_coords(), labels = TRUE, ...)
 }
 \arguments{
 \item{data}{data to plot, default \code{keys_coords} which is a piano}
+
+\item{labels}{whether to show key labels}
+
+\item{\dots}{Currently not used}
 }
 \description{
 Plot piano

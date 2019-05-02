@@ -6,6 +6,9 @@
 \usage{
 get_key(root_tone)
 }
+\arguments{
+\item{root_tone}{Root tone}
+}
 \description{
 Get key for a tone
 }

@@ -51,9 +51,25 @@ d_tones_choords <- d_tones %>%
   gather(variant, keys, c(root, starts_with("inversion"))) %>% 
   mutate(variant = fct_inorder(variant)) %>%
   mutate(tone = fct_inorder(tone)) %>% 
-  mutate(caption = paste0(type, " ", label, " (", variant, ")"),
-         caption = gsub("\n", "/", caption, fixed = TRUE),
-         caption = gsub(" (root)", "", caption, fixed = TRUE)) %>% 
+  # mutate(caption = paste0(type, " ", label, " (", variant, ")"),
+  #        caption = gsub("\n", "/", caption, fixed = TRUE),
+  #        caption = gsub(" (root)", "", caption, fixed = TRUE),
+  #        caption = gsub(" (", "\n(", caption, fixed = TRUE)
+  #        ) %>% 
+  mutate(caption = case_when(
+    type == "major" ~ paste0(label, " (", variant, ")"),
+    type == "minor" ~ case_when(
+      grepl("\n", label, fixed = TRUE) ~ paste0(
+        gsub("^(.*)\n(.*)$", "\\1m/\\2m", label), 
+        " (", variant, ")"),
+      TRUE ~ paste0(label, "m (", variant, ")")))) %>% 
+  mutate(caption = gsub("\n", "/", caption, fixed = TRUE),
+        caption = gsub(" (root)", "", caption, fixed = TRUE),
+        caption = gsub(" (", "\n(", caption, fixed = TRUE)) %>% 
+  mutate(caption = case_when(
+    !grepl("(", caption, fixed = TRUE) ~ gsub("/", "\n", caption, fixed = TRUE),
+    TRUE ~ caption
+  )) %>% 
   arrange(tone, type, variant)
 d_tones_choords
 ```
@@ -63,12 +79,29 @@ figures <- vector("list", nrow(d_tones_choords))
 
 for (i in seq_along(figures)) {
   row <- d_tones_choords %>% slice(i)
+  size <- 2
+  angle <- 90
   
+  if (row %>% pull(variant) == "root") {
+    size <- 3
+    angle <- 0
+  }
+    
   p <- d_keys_coords %>% 
     highlight_keys(keys = row %>% pull(keys) %>% unlist()) %>%
-    ggpiano(labels = FALSE) +
-    labs(title = row %>% pull(caption))
+    ggpiano(labels = FALSE) + 
+    annotate(geom = "text", x = -0.075, y = 0.5, 
+             size = size,
+             lineheight = 0.75,
+             label = row %>% pull(caption),
+             color = "black",
+             angle = angle)
   
+  if (row %>% pull(variant) == "root") {
+    p <- p + 
+      theme(plot.margin = unit(c(0, 0, 0, 0.1), "cm"))
+  }
+
   figures[[i]] <- p
 }
 ```
@@ -80,10 +113,18 @@ ncols <- nrow(d_tones_choords) / nrows
 ```
 
 ```{r, fig.width = 10, fig.height = 20}
-do.call(grid.arrange, c(figures, ncol = ncols, nrow = nrows))
+p <- arrangeGrob(grobs = figures, ncol = ncols, nrow = nrows)
+grid.draw(p)
+# or ggsave()
 ```
 
 
-
-
+```{r, include=FALSE, eval=FALSE}
+fl <- tempfile()
+ggsave(filename = fl, plot = p, device = cairo_pdf, 
+       width = 210, 
+       height = 297,
+       units = "mm")
+fl
+```
 

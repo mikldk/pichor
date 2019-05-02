@@ -1,5 +1,7 @@
 #' Get key for a tone
 #'  
+#' @param root_tone Root tone
+#' 
 #' @importFrom dplyr filter pull
 #' 
 #' @export
@@ -126,6 +128,7 @@ construct_chord_raw <- function(root_tone, distances_rel) {
   return(res)
 }
 
+#' @export
 print.pichor_chord <- function(x, ...) {
   cat("Chord with root tone ", 
       x$root_tone, " and then tones ", 
@@ -147,6 +150,8 @@ construct_chord_major <- function(root_tone) {
   
   return(res)
 }
+
+#' @export
 print.pichor_chord_major <- function(x, ...) {
   cat("Major ", x$root_tone, " chord with tones ", 
       paste0(x$other_tones, collapse = ", "), "\n", sep = "")
@@ -167,6 +172,8 @@ construct_chord_minor <- function(root_tone) {
   
   return(res)
 }
+
+#' @export
 print.pichor_chord_minor <- function(x, ...) {
   cat("Minor ", x$root_tone, "m chord with tones ", 
       paste0(x$other_tones, collapse = ", "), "\n", sep = "")
@@ -188,9 +195,11 @@ get_keys_next_inversion <- function(keys) {
 #' @param chord chord created by e.g. `construct_chord_*()`, i.e. [construct_chord_raw()], 
 #' [construct_chord_major()], [construct_chord_minor()]
 #' 
+#' @importFrom methods is
+#' 
 #' @export
 get_keys <- function(chord) {
-  if (is.null(chord) || !is(chord, "pichor_chord")) {
+  if (is.null(chord) || !methods::is(chord, "pichor_chord")) {
     stop("chord must be a pichor_chord")
   }
   
@@ -202,9 +211,12 @@ get_keys <- function(chord) {
 #' @inheritParams get_keys
 #' @param highest_tone Higest tone in the inversion wanted to get keys for
 #' 
+#' @importFrom methods is
+#' @importFrom utils tail
+#' 
 #' @export
 get_keys_highest_tone <- function(chord, highest_tone) {
-  if (is.null(chord) || !is(chord, "pichor_chord")) {
+  if (is.null(chord) || !methods::is(chord, "pichor_chord")) {
     stop("chord must be a pichor_chord")
   }
   
@@ -234,7 +246,7 @@ get_keys_highest_tone <- function(chord, highest_tone) {
     keys_inv <- get_keys_next_inversion(keys_inv)
     tones_inv <- unlist(lapply(keys_inv, get_tones))
     
-    x <- tail(tones_inv, 1)
+    x <- utils::tail(tones_inv, 1)
     
     if (nchar(highest_tone) == 1L) {
       if (x == highest_tone) {
@@ -259,9 +271,11 @@ get_keys_highest_tone <- function(chord, highest_tone) {
 #' @inheritParams get_keys
 #' @param inversion Inversion to get
 #' 
+#' @importFrom methods is
+#' 
 #' @export
 get_keys_inversion <- function(chord, inversion = 0L) {
-  if (is.null(chord) || !is(chord, "pichor_chord")) {
+  if (is.null(chord) || !methods::is(chord, "pichor_chord")) {
     stop("chord must be a pichor_chord")
   }
   

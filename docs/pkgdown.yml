@@ -1,0 +1,8 @@
+pandoc: 2.7.1
+pkgdown: 1.3.0
+pkgdown_sha: ~
+articles:
+  example-chart: example-chart.html
+  exhaustive-chart: exhaustive-chart.html
+  introduction: introduction.html
+

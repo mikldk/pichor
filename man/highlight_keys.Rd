@@ -9,9 +9,9 @@ highlight_keys(data, keys, color = "lightblue")
 \arguments{
 \item{data}{data with key coordinates, e.g. from \code{\link[=get_keys_coords]{get_keys_coords()}}}
 
-\item{color}{highlight color}
+\item{keys}{key numbers, note that can be greater than 12}
 
-\item{key}{key numbers, note that can be greater than 12}
+\item{color}{highlight color}
 }
 \description{
 Highlight keys

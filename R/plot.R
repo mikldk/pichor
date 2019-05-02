@@ -1,8 +1,11 @@
 #' Plot piano
 #' 
 #' @param data data to plot, default `keys_coords` which is a piano
+#' @param labels whether to show key labels
+#' @param \dots Currently not used
 #' 
-#' @importFrom ggplot2 ggplot aes scale_fill_manual theme_void geom_rect
+#' @importFrom ggplot2 ggplot aes scale_fill_identity scale_color_identity theme_void geom_rect geom_text
+#' @importFrom dplyr pull 
 #' 
 #' @export
 ggpiano <- function(data = get_keys_coords(), labels = TRUE, ...) {
@@ -10,7 +13,7 @@ ggpiano <- function(data = get_keys_coords(), labels = TRUE, ...) {
   
   p <- ggplot2::ggplot(data = data, environment = envir)
   
-  for (l in data %>% pull(layer) %>% unique() %>% sort()) {
+  for (l in data %>% dplyr::pull(layer) %>% unique() %>% sort()) {
     p <- p + ggplot2::geom_rect(data = data %>% filter(layer == l), 
                                 mapping = ggplot2::aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, 
                                                        group = key,
@@ -20,11 +23,11 @@ ggpiano <- function(data = get_keys_coords(), labels = TRUE, ...) {
   }
   
   if (labels) {
-    p <- p + geom_text(aes(x = label_x, 
+    p <- p + ggplot2::geom_text(ggplot2::aes(x = label_x, 
                            y = label_y, 
                            label = label, 
                            color = label_color), show.legend = FALSE) +
-      scale_color_identity()
+      ggplot2::scale_color_identity()
   }
   
   p <- p +
@@ -39,7 +42,7 @@ ggpiano <- function(data = get_keys_coords(), labels = TRUE, ...) {
 #' Highlight keys
 #' 
 #' @param data data with key coordinates, e.g. from [get_keys_coords()]
-#' @param key key numbers, note that can be greater than 12
+#' @param keys key numbers, note that can be greater than 12
 #' @param color highlight color
 #' 
 #' @importFrom dplyr mutate case_when
@@ -78,9 +81,11 @@ highlight_keys <- function(data, keys, color = "lightblue") {
 #' 
 #' @details If `highest_tone` is provided, then `inversion` is ignored
 #' 
+#' @importFrom methods is
+#' 
 #' @export
 highlight_chord <- function(data, chord, inversion = 0L, highest_tone = NULL, color = "lightblue") {
-  if (is.null(data) || !is(data, "pichor_key_koords")) {
+  if (is.null(data) || !methods::is(data, "pichor_key_koords")) {
     stop("data must be a pichor_key_koords")
   }
   

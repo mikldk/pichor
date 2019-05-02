@@ -9,3 +9,4 @@
 ^tic\.R$
 ^docs
 ^codemeta\.json$
+^appveyor\.yml$
