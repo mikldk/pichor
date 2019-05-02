@@ -1,0 +1,88 @@
+---
+title: "Example chart"
+author: "Mikkel Meyer Andersen"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Example chart}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  message = FALSE,
+  comment = "#>"
+)
+```
+
+```{r}
+library(magrittr)
+library(ggplot2)
+library(gridExtra)
+library(pichor)
+```
+
+```{r}
+d_keys_coords <- get_keys_coords()
+```
+
+```{r}
+labels <- FALSE
+
+ps <- list()
+
+p_D_D <- d_keys_coords %>% 
+  highlight_chord(chord = construct_chord_major("D"), highest_tone = "D") %>% 
+  ggpiano(labels = labels) +
+  labs(title = "D (D)")
+ps <- append(ps, list(p_D_D))
+
+p_Fsm_A <- d_keys_coords %>% 
+  highlight_chord(chord = construct_chord_minor("F#"), highest_tone = "A") %>% 
+  ggpiano(labels = labels) +
+  labs(title = "F#m (A)")
+ps <- append(ps, list(p_Fsm_A))
+
+p_Bm_D <- d_keys_coords %>% 
+  highlight_chord(chord = construct_chord_minor("B"), highest_tone = "D") %>% 
+  ggpiano(labels = labels) +
+  labs(title = "Bm (D)")
+ps <- append(ps, list(p_Bm_D))
+
+p_G_G <- d_keys_coords %>% 
+  highlight_chord(chord = construct_chord_major("G"), highest_tone = "G") %>% 
+  ggpiano(labels = labels) +
+  labs(title = "G (G)")
+ps <- append(ps, list(p_G_G))
+
+p_D_F <- d_keys_coords %>% 
+  highlight_chord(chord = construct_chord_major("D"), highest_tone = "F#") %>% 
+  ggpiano(labels = labels) +
+  labs(title = "D (F)")
+ps <- append(ps, list(p_D_F))
+
+p_A_E <- d_keys_coords %>% 
+  highlight_chord(chord = construct_chord_major("A"), highest_tone = "E") %>% 
+  ggpiano(labels = labels) +
+  labs(title = "D (F)")
+ps <- append(ps, list(p_A_E))
+
+p_G_B <- d_keys_coords %>% 
+  highlight_chord(chord = construct_chord_major("G"), highest_tone = "B") %>% 
+  ggpiano(labels = labels) +
+  labs(title = "G (B)")
+ps <- append(ps, list(p_G_B))
+
+p_A_C <- d_keys_coords %>% 
+  highlight_chord(chord = construct_chord_major("A"), highest_tone = "C#") %>% 
+  ggpiano(labels = labels) +
+  labs(title = "A (C)")
+ps <- append(ps, list(p_A_C))
+```
+
+```{r, fig.width = 10, fig.height = 10}
+do.call(grid.arrange, c(ps, ncol = 2))
+```
+

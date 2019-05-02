@@ -1,10 +1,10 @@
 ---
-title: "Vignette Title"
-author: "Vignette Author"
+title: "Introduction"
+author: "Mikkel Meyer Andersen"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Introduction}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -12,6 +12,7 @@ vignette: >
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
+  message = FALSE,
   comment = "#>"
 )
 ```
@@ -31,9 +32,7 @@ ggpiano(d)
 ```
 
 ```{r}
-ggpiano(d) + 
-  geom_text(aes(x = label_x, y = label_y, label = label, color = label_color), show.legend = FALSE) +
-  scale_color_identity()
+ggpiano(d, labels = FALSE)
 ```
 
 
@@ -41,14 +40,6 @@ ggpiano(d) +
 d %>% 
   highlight_keys(keys = c(1, 4, 13)) %>%
   ggpiano()
-```
-
-```{r}
-d %>% 
-  highlight_keys(keys = c(1, 4, 13)) %>%
-  ggpiano() +
-  geom_text(aes(x = label_x, y = label_y, label = label, color = label_color), show.legend = FALSE) +
-  scale_color_identity()
 ```
 
 ```{r}

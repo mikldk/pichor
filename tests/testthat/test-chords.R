@@ -49,3 +49,100 @@ test_that("get_key_color()", {
   expect_equal(get_key_color(11), "black")
   expect_equal(get_key_color(12), "white")
 })
+
+
+test_that("get_tones()", {
+  expect_equal(get_tones(1), "C")
+  expect_equal(get_tones(2), "C#/Db")
+  expect_equal(get_tones(2, sep = ":", as_string = TRUE), "C#:Db")
+  expect_equal(get_tones(2, sep = "\n", as_string = TRUE), "C#\nDb")
+  expect_equal(get_tones(2, as_string = FALSE), c("C#", "Db"))
+  
+  keys <- get_keys_coords() %>% 
+    dplyr::pull(key) %>% 
+    unique()
+  
+  for (k in keys) {
+    x <- get_tones(k, as_string = FALSE)
+    
+    for (k1 in x) {
+      expect_equal(get_next_key(k, 0), get_key(k1), info = paste0("k = ", k, ", k1 = ", k1, ", get_key(k1) = ", get_key(k1)))
+    }
+  }
+})
+
+
+test_that("get_keys_from_sequence()", {
+  expect_equal(get_keys_from_sequence(1, c(1, 2, 3)), 1:4)
+})
+
+
+test_that("construct_chord_raw()", {
+  chd <- construct_chord_raw(root_tone = "C", distances_rel = c(4, 3))
+  
+  expect_equal(chd$root_tone, "C")
+  expect_equal(chd$root_key, 1)
+  expect_equal(chd$other_keys, cumsum(c(4, 3))+chd$root_key)
+})
+
+test_that("construct_chord_major()", {
+  chd <- construct_chord_major(root_tone = "C")
+  expect_equal(chd$root_tone, "C")
+  expect_equal(chd$root_key, 1)
+  expect_equal(chd$other_keys, cumsum(c(4, 3))+chd$root_key)
+})
+
+test_that("construct_chord_minor()", {
+  chd <- construct_chord_minor(root_tone = "C")
+  expect_equal(chd$root_tone, "C")
+  expect_equal(chd$root_key, 1)
+  expect_equal(chd$other_keys, cumsum(c(3, 4))+chd$root_key)
+})
+
+
+test_that("get_keys_next_inversion()", {
+  expect_equal(get_keys_next_inversion(c(1, 5, 8)), c(5, 8, 1+12))
+  expect_equal(get_keys_next_inversion(c(5, 8, 1+12)), c(8, 1+12, 5+12))
+  expect_equal(get_keys_next_inversion(c(8, 1+12, 5+12)), c(1+12, 5+12, 8+12)-12)
+})
+
+test_that("get_keys()", {
+  chd <- construct_chord_minor(root_tone = "F#")
+  expect_equal(get_keys(chord = chd), c(7, 10, 14))
+})
+
+
+test_that("get_keys()", {
+  chd <- construct_chord_minor(root_tone = "F#")
+  expect_equal(get_keys_highest_tone(chord = chd, highest_tone = "A"), c(2, 7, 10))
+})
+
+
+test_that("get_keys_next_inversion()", {
+  chd <- construct_chord_major(root_tone = "C")
+  
+  expect_equal(get_keys_inversion(chord = chd, inversion = 0L), c(1, 5, 8))
+  expect_equal(get_keys_inversion(chord = chd, inversion = 1L), 
+               get_keys_next_inversion(c(1, 5, 8)))
+  expect_equal(get_keys_inversion(chord = chd, inversion = 2L), 
+               get_keys_next_inversion(
+                 get_keys_next_inversion(c(1, 5, 8))))
+})
+
+
+test_that("highlight_chord()", {
+  d_keys_coords <- get_keys_coords()
+  
+  chd1 <- construct_chord_major("D")
+  d1 <- d_keys_coords %>% 
+    highlight_chord(chord = chd1, highest_tone = "F#", color = "blue") %>% 
+    filter(key_color == "blue")
+  expect_equal(get_keys_inversion(chd1, 2L), d1 %>% pull(key))
+  
+  chd2 <- construct_chord_major("G")
+  d2 <- d_keys_coords %>% 
+    highlight_chord(chord = chd2, highest_tone = "B", color = "blue") %>% 
+    filter(key_color == "blue")
+  expect_equal(get_keys_inversion(chd2, 2L), d2 %>% pull(key))
+})
+

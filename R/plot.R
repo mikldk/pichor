@@ -5,7 +5,7 @@
 #' @importFrom ggplot2 ggplot aes scale_fill_manual theme_void geom_rect
 #' 
 #' @export
-ggpiano <- function(data = get_keys_coords(), ...) {
+ggpiano <- function(data = get_keys_coords(), labels = TRUE, ...) {
   envir <- parent.frame()
   
   p <- ggplot2::ggplot(data = data, environment = envir)
@@ -19,6 +19,14 @@ ggpiano <- function(data = get_keys_coords(), ...) {
                                 show.legend = FALSE)
   }
   
+  if (labels) {
+    p <- p + geom_text(aes(x = label_x, 
+                           y = label_y, 
+                           label = label, 
+                           color = label_color), show.legend = FALSE) +
+      scale_color_identity()
+  }
+  
   p <- p +
     ggplot2::scale_fill_identity() +
     ggplot2::theme_void()
@@ -27,31 +35,67 @@ ggpiano <- function(data = get_keys_coords(), ...) {
   
   return(p)
 }
+
+#' Highlight keys
 #' 
+#' @param data data with key coordinates, e.g. from [get_keys_coords()]
+#' @param key key numbers, note that can be greater than 12
+#' @param color highlight color
 #' 
-#' #' Highlight chord
-#' #'
-#' #' @inheritParams ggpiano
-#' #' @param chord chord to plot
-#' #' @param color color for keys in chord
-#' #' 
-#' #' @export
-#' ggchord <- function(chord = NULL, color = "lightblue", data = keys_coords) {
-#'   if (is.null(chord) || !is(chord, "chord")) {
-#'     stop("chord must be a chord")
-#'   }
-#'   
-#'   chord_long <- chord %>% unnest()
-#'   chord_keys <- chord_long %>% pull(key)
-#'   
-#'   newdata <- data %>% 
-#'     mutate(key_color = case_when(
-#'       key %in% chord_keys ~ color,
-#'       TRUE ~ key_color
-#'     ))
-#'   
-#'   p <- ggpiano(data = newdata)
-#'   
-#'   return(p)
-#' }
+#' @importFrom dplyr mutate case_when
+#' @importFrom magrittr "%>%"
 #' 
+#' @export
+highlight_keys <- function(data, keys, color = "lightblue") {
+  if (is.null(data) || !is(data, "pichor_key_koords")) {
+    stop("data must be a pichor_key_koords")
+  }
+  
+  unknown_keys <- setdiff(keys, data %>% pull(key))
+  if (length(unknown_keys) > 0) {
+    stop("Some keys were unknown: ", paste0(unknown_keys, collapse = ", "))
+  }
+  
+  newdata <- data %>%
+    dplyr::mutate(key_color = dplyr::case_when(
+      key %in% keys ~ color,
+      TRUE ~ key_color
+    )) %>% 
+    dplyr::mutate(label_color = case_when(
+      key_color == "black" ~ "white",
+      TRUE ~ "black"))
+  
+  return(newdata)
+}
+
+#' Highlight coord
+#' 
+#' @param data data with key coordinates, e.g. from [get_keys_coords()]
+#' @param chord chord to highlight, e.g. from [construct_chord_major()] or [construct_chord_raw()]
+#' @param inversion inversion number
+#' @param highest_tone if inversion by highest tone is wanted
+#' @param color highlight color
+#' 
+#' @details If `highest_tone` is provided, then `inversion` is ignored
+#' 
+#' @export
+highlight_chord <- function(data, chord, inversion = 0L, highest_tone = NULL, color = "lightblue") {
+  if (is.null(data) || !is(data, "pichor_key_koords")) {
+    stop("data must be a pichor_key_koords")
+  }
+  
+  if (is.null(chord) || !is(chord, "pichor_chord")) {
+    stop("chord must be a pichor_chord")
+  }
+  
+  if (!is.null(highest_tone)) {
+    keys <- get_keys_highest_tone(chord = chord, highest_tone = highest_tone)
+    return(highlight_keys(data = data, keys = keys, color = color))
+  } else if (!is.null(inversion)) {
+    keys <- get_keys_inversion(chord = chord, inversion = inversion)
+    return(highlight_keys(data = data, keys = keys, color = color))
+  } else {
+    stop("Please provide form or highest_tone")
+  }
+}
+

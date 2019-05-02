@@ -44,6 +44,16 @@ get_tones <- function(key, sep = "/", as_string = TRUE) {
   return(tones)
 }
 
+#' Get next key
+#' 
+#' @param origin origin key
+#' @param distance number of keys to move
+#' 
+#' @export
+get_next_key <- function(origin, distance) {
+  return(((origin - 1L + distance) %% 12L) + 1L)
+}
+
 #' Get key color
 #' 
 #' @param key key number
@@ -52,7 +62,7 @@ get_tones <- function(key, sep = "/", as_string = TRUE) {
 #' 
 #' @export
 get_key_color <- function(key) {
-  key_mod12 <- ((key - 1) %% 12) + 1
+  key_mod12 <- get_next_key(key, 0L)
   
   d_key_color <- tone_properties %>% 
     dplyr::filter(key == key_mod12) %>% 
@@ -67,26 +77,21 @@ get_key_color <- function(key) {
   return(key_color)
 }
 
-#' Get next key
-#' 
-#' @param origin origin key
-#' @param distance number of keys to move
-#' 
-#' @export
-get_next_key <- function(origin, distance) {
-  return(((origin - 1 + distance) %% 12) + 1)
-}
 
+# get_keys_from_sequence <- function(origin_key, distances_origin) {
+#   keys <- integer(length(distances_origin))
+#   
+#   for (i in seq_along(keys)) {
+#     #keys[i] <- get_next_key(origin_key, distances_origin[i])
+#     keys[i] <- origin_key + distances_origin[i]
+#   }
+#   
+#   keys <- c(origin_key, keys)
+#   
+#   return(keys)
+# }
 get_keys_from_sequence <- function(origin_key, distances_origin) {
-  keys <- integer(length(distances_origin))
-  
-  for (i in seq_along(keys)) {
-    #keys[i] <- get_next_key(origin_key, distances_origin[i])
-    keys[i] <- origin_key + distances_origin[i]
-  }
-  
-  keys <- c(origin_key, keys)
-  
+  keys <- c(origin_key, origin_key + distances_origin)
   return(keys)
 }
 
@@ -107,8 +112,8 @@ construct_chord_raw <- function(root_tone, distances_rel) {
   res <- list(
     root_tone = root_tone,
     root_key = keys[1L],
-    other_tones = tones[-1],
-    other_keys = keys[-1],
+    other_tones = tones[-1L],
+    other_keys = keys[-1L],
     distances_rel = distances_rel,
     distances_from_root_tone = distances_from_root_tone,
     all_keys = keys,
@@ -136,7 +141,7 @@ print.pichor_chord <- function(x, ...) {
 #' @export
 construct_chord_major <- function(root_tone) {
   res <- construct_chord_raw(root_tone = root_tone, 
-                             distances_rel = c(4, 3))
+                             distances_rel = c(4L, 3L))
   
   class(res) <- c("pichor_chord_major", "pichor_chord")
   
@@ -156,7 +161,7 @@ print.pichor_chord_major <- function(x, ...) {
 #' @export
 construct_chord_minor <- function(root_tone) {
   res <- construct_chord_raw(root_tone = root_tone, 
-                             distances_rel = c(3, 4))
+                             distances_rel = c(3L, 4L))
   
   class(res) <- c("pichor_chord_minor", "pichor_chord")
   
@@ -167,40 +172,9 @@ print.pichor_chord_minor <- function(x, ...) {
       paste0(x$other_tones, collapse = ", "), "\n", sep = "")
 }
 
-#' Highlight keys
-#' 
-#' @param data data with key coordinates, e.g. from [get_keys_coords()]
-#' @param key key numbers, note that can be greater than 12
-#' @param color highlight color
-#' 
-#' @importFrom dplyr mutate case_when
-#' @importFrom magrittr "%>%"
-#' 
-#' @export
-highlight_keys <- function(data, keys, color = "lightblue") {
-  if (is.null(data) || !is(data, "pichor_key_koords")) {
-    stop("data must be a pichor_key_koords")
-  }
-  
-  unknown_keys <- setdiff(keys, data %>% pull(key))
-  if (length(unknown_keys) > 0) {
-    stop("Some keys were unknown: ", paste0(unknown_keys, collapse = ", "))
-  }
-  
-  newdata <- data %>%
-    dplyr::mutate(key_color = dplyr::case_when(
-      key %in% keys ~ color,
-      TRUE ~ key_color
-      )) %>% 
-    dplyr::mutate(label_color = case_when(
-      key_color == "black" ~ "white",
-      TRUE ~ "black"))
-  
-  return(newdata)
-}
-  
+
 get_keys_next_inversion <- function(keys) {
-  new_keys <- c(keys[-1L], keys[1L] + 12)
+  new_keys <- c(keys[-1L], keys[1L] + 12L)
   
   if (all(new_keys > 12L)) {
     new_keys <- new_keys - 12L
@@ -209,6 +183,12 @@ get_keys_next_inversion <- function(keys) {
   return(new_keys)
 }
 
+#' Get keys for a chord
+#' 
+#' @param chord chord created by e.g. `construct_chord_*()`, i.e. [construct_chord_raw()], 
+#' [construct_chord_major()], [construct_chord_minor()]
+#' 
+#' @export
 get_keys <- function(chord) {
   if (is.null(chord) || !is(chord, "pichor_chord")) {
     stop("chord must be a pichor_chord")
@@ -217,6 +197,12 @@ get_keys <- function(chord) {
   return(chord$all_keys)
 }
 
+#' Get keys for an inversion with a specific highest tone
+#' 
+#' @inheritParams get_keys
+#' @param highest_tone Higest tone in the inversion wanted to get keys for
+#' 
+#' @export
 get_keys_highest_tone <- function(chord, highest_tone) {
   if (is.null(chord) || !is(chord, "pichor_chord")) {
     stop("chord must be a pichor_chord")
@@ -224,7 +210,12 @@ get_keys_highest_tone <- function(chord, highest_tone) {
   
   stopifnot(length(highest_tone) == 1L)
   
-  pos_high <- which(chord$all_tones == highest_tone)
+  pos_high <- if (nchar(highest_tone) == 1L) {
+    which(chord$all_tones == highest_tone)
+  } else {
+    which(grepl(paste0("^", highest_tone, "/"), chord$all_tones) |
+            grepl(paste0("/", highest_tone, "$"), chord$all_tones))  
+  }
   
   if (length(pos_high) != 1L) {
     stop(highest_tone, " not found in chord")
@@ -243,14 +234,32 @@ get_keys_highest_tone <- function(chord, highest_tone) {
     keys_inv <- get_keys_next_inversion(keys_inv)
     tones_inv <- unlist(lapply(keys_inv, get_tones))
     
-    if (tail(tones_inv, 1) == highest_tone) {
-      return(keys_inv)
+    x <- tail(tones_inv, 1)
+    
+    if (nchar(highest_tone) == 1L) {
+      if (x == highest_tone) {
+        return(keys_inv)
+      }
+    } else {
+      if (substr(x, 1, 2) == highest_tone) {
+        return(keys_inv)
+      }
+      
+      if (substr(x, 4, 5) == highest_tone) {
+        return(keys_inv)
+      } 
     }
   }
   
   stop("Unexpected that highest_tone was not found")
 }
 
+#' Get keys for an inversion
+#' 
+#' @inheritParams get_keys
+#' @param inversion Inversion to get
+#' 
+#' @export
 get_keys_inversion <- function(chord, inversion = 0L) {
   if (is.null(chord) || !is(chord, "pichor_chord")) {
     stop("chord must be a pichor_chord")
@@ -269,37 +278,6 @@ get_keys_inversion <- function(chord, inversion = 0L) {
   }
   
   return(keys)
-}
-
-#' Highlight coord
-#' 
-#' @param data data with key coordinates, e.g. from [get_keys_coords()]
-#' @param chord chord to highlight, e.g. from [construct_chord_major()] or [construct_chord_raw()]
-#' @param inversion inversion number
-#' @param highest_tone if inversion by highest tone is wanted
-#' @param color highlight color
-#' 
-#' @details If `highest_tone` is provided, then `inversion` is ignored
-#' 
-#' @export
-highlight_chord <- function(data, chord, inversion = 0L, highest_tone = NULL, color = "lightblue") {
-  if (is.null(data) || !is(data, "pichor_key_koords")) {
-    stop("data must be a pichor_key_koords")
-  }
-
-  if (is.null(chord) || !is(chord, "pichor_chord")) {
-    stop("chord must be a pichor_chord")
-  }
-  
-  if (!is.null(highest_tone)) {
-    keys <- get_keys_highest_tone(chord = chord, highest_tone = highest_tone)
-    return(highlight_keys(data = data, keys = keys, color = color))
-  } else if (!is.null(inversion)) {
-    keys <- get_keys_inversion(chord = chord, inversion = inversion)
-    return(highlight_keys(data = data, keys = keys, color = color))
-  } else {
-    stop("Please provide form or highest_tone")
-  }
 }
 
 
