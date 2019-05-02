@@ -16,21 +16,76 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r}
-keys_coords
+```{r, message=FALSE}
+library(ggplot2)
+library(dplyr)
 ```
 
 ```{r}
-ggpiano()
+d <- get_keys_coords()
+d
 ```
 
 ```{r}
-chrd_D <- keys_major_chord("D")
-chrd_D
+ggpiano(d)
 ```
 
 ```{r}
-ggchord(chrd_D)
+ggpiano(d) + 
+  geom_text(aes(x = label_x, y = label_y, label = label, color = label_color), show.legend = FALSE) +
+  scale_color_identity()
+```
+
+
+```{r}
+d %>% 
+  highlight_keys(keys = c(1, 4, 13)) %>%
+  ggpiano()
+```
+
+```{r}
+d %>% 
+  highlight_keys(keys = c(1, 4, 13)) %>%
+  ggpiano() +
+  geom_text(aes(x = label_x, y = label_y, label = label, color = label_color), show.legend = FALSE) +
+  scale_color_identity()
+```
+
+```{r}
+chrd_Fsm <- construct_chord_minor(root_tone = "F#")
+chrd_Fsm
+
+d %>% 
+  highlight_chord(chord = chrd_Fsm) %>%  # root form by default
+  ggpiano()
+
+get_keys(chord = chrd_Fsm)
+get_keys_highest_tone(chord = chrd_Fsm, highest_tone = "A")
+
+d %>% 
+  highlight_chord(chord = chrd_Fsm, highest_tone = "A") %>% 
+  ggpiano()
+```
+
+
+```{r}
+chrd_Bm <- construct_chord_minor(root_tone = "B")
+get_keys(chord = chrd_Bm)
+get_keys_inversion(chord = chrd_Bm, inversion = 0)
+get_keys_inversion(chord = chrd_Bm, inversion = 1)
+get_keys_inversion(chord = chrd_Bm, inversion = 2)
+
+d %>% 
+  highlight_chord(chord = chrd_Bm, inversion = 0L) %>% 
+  ggpiano()
+
+d %>% 
+  highlight_chord(chord = chrd_Bm, inversion = 1L) %>% 
+  ggpiano()
+
+d %>% 
+  highlight_chord(chord = chrd_Bm, inversion = 2L) %>% 
+  ggpiano()
 ```
 
 

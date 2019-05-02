@@ -132,10 +132,10 @@ generate_sysdata <- function() {
   
   # Save all data
   # Internal:
-  usethis::use_data(tone_properties, 
+  usethis::use_data(tone_properties, keys_coords,
                     internal = TRUE, overwrite = TRUE)
   
-  # External
-  usethis::use_data(keys_coords, 
-                    internal = FALSE, overwrite = TRUE)
+  # # External
+  # usethis::use_data(keys_coords, 
+  #                   internal = FALSE, overwrite = TRUE)
 }
