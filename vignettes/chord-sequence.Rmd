@@ -51,13 +51,13 @@ choord_names <- sapply(choords, capture.output)
 ```
 
 ```{r}
-keys_seq <- lapply(choords, get_keys)
-#keys_seq <- lapply(choords, get_keys_inversion, inversion = 0L)
+key_seq <- lapply(choords, get_keys)
+#key_seq <- lapply(choords, get_keys_inversion, inversion = 0L)
 ```
 
 ```{r}
 keys_coords %>% 
-  highlight_key_sequence(key_sequence = keys_seq) %>% 
+  highlight_key_sequence(key_sequence = key_seq) %>% 
   ggpiano(labels = FALSE) + 
   facet_wrap(~ seq_no)
 ```
@@ -67,7 +67,7 @@ And get more helpful facet panel title:
 ```{r}
 d_chord_nms <- tibble::enframe(choord_names, name = "seq_no", value = "seq_nm")
 d <- keys_coords %>% 
-  highlight_key_sequence(key_sequence = keys_seq) %>% 
+  highlight_key_sequence(key_sequence = key_seq) %>% 
   left_join(d_chord_nms, by = "seq_no") %>% 
   mutate(seq_lbl = paste0(seq_no, "(", seq_nm, ")")) %>% 
   mutate(seq_lbl = forcats::fct_inorder(seq_lbl))
@@ -78,3 +78,40 @@ d %>%
   ggpiano(labels = FALSE) + 
   facet_wrap(~ seq_lbl)
 ```
+
+
+# Finding better inversions
+
+Currently only one method is available for finding better inversions. 
+It is minimising the distances between keys in consecutive chords. 
+And with an exhaustive approach that is only feasible for shorter sequences. 
+
+```{r}
+key_seq
+opt_res <- optim_min_dist_exhaustive(key_sequence = key_seq)
+opt_res
+```
+
+```{r}
+keys_coords %>% 
+  highlight_key_sequence(key_sequence = opt_res$best) %>% 
+  left_join(d_chord_nms, by = "seq_no") %>% 
+  mutate(seq_lbl = paste0(seq_no, "(", seq_nm, ")")) %>% 
+  mutate(seq_lbl = forcats::fct_inorder(seq_lbl)) %>% 
+  ggpiano(labels = FALSE) + 
+  facet_wrap(~ seq_lbl) +
+  labs(title = "Best inversions")
+```
+
+```{r}
+keys_coords %>% 
+  highlight_key_sequence(key_sequence = opt_res$worst) %>% 
+  left_join(d_chord_nms, by = "seq_no") %>% 
+  mutate(seq_lbl = paste0(seq_no, "(", seq_nm, ")")) %>% 
+  mutate(seq_lbl = forcats::fct_inorder(seq_lbl)) %>% 
+  ggpiano(labels = FALSE) + 
+  facet_wrap(~ seq_lbl) +
+  labs(title = "Worst inversions")
+```
+
+

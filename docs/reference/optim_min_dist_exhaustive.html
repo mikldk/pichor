@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get key for a tone — get_key • pichor</title>
+<title>Optimise sequence — optim_min_dist_exhaustive • pichor</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Get key for a tone — get_key" />
+<meta property="og:title" content="Optimise sequence — optim_min_dist_exhaustive" />
 
-<meta property="og:description" content="Get key for a tone" />
+<meta property="og:description" content="Exhaustive minimisation of the distances between keys in consecutive chords" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -115,25 +115,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get key for a tone</h1>
+    <h1>Optimise sequence</h1>
     
-    <div class="hidden name"><code>get_key.Rd</code></div>
+    <div class="hidden name"><code>optim_min_dist_exhaustive.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Get key for a tone</p>
+    <p>Exhaustive minimisation of the distances between keys in consecutive chords</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_key</span>(<span class='no'>root_tone</span>)</pre>
+    <pre class="usage"><span class='fu'>optim_min_dist_exhaustive</span>(<span class='no'>key_sequence</span>, <span class='kw'>error_on_big</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>root_tone</th>
-      <td><p>Root tone</p></td>
+      <th>key_sequence</th>
+      <td><p>list of vector with key numbers, note that they can be greater than 12</p></td>
+    </tr>
+    <tr>
+      <th>error_on_big</th>
+      <td><p>stop if more than 100,000 combinations of inversions must be checked</p></td>
     </tr>
     </table>
     

@@ -285,8 +285,8 @@ get_keys_inversion <- function(chord, inversion = 0L) {
     stop("invalid inversion")
   }
   
+  # TODO: optimise?
   keys <- chord$all_keys
-  
   for (i in seq_len(inversion)) {
     keys <- get_keys_next_inversion(keys)
   }
