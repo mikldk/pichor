@@ -1,0 +1,80 @@
+---
+title: "Chord sequence"
+author: "Mikkel Meyer Andersen"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Chord sequence}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  message = FALSE,
+  comment = "#>"
+)
+```
+
+```{r}
+library(ggplot2)
+library(forcats)
+library(dplyr)
+library(pichor)
+```
+
+# Minimal example
+
+```{r}
+keys_coords %>% 
+  highlight_key_sequence(key_sequence = list(c(1, 2, 3), c(2, 3, 4))) %>% 
+  ggpiano(labels = FALSE) + 
+  facet_wrap(~ seq_no)
+```
+
+# Slightly larger example
+
+
+"Let it be" by Beatles has initially chords G, D, Em, C, G, D, C.
+
+```{r}
+choords <- list(construct_chord_major("G"),
+                construct_chord_major("D"),
+                construct_chord_minor("E"), # Em
+                construct_chord_major("C"),
+                construct_chord_major("G"),
+                construct_chord_major("D"),
+                construct_chord_major("C"))
+choords
+choord_names <- sapply(choords, capture.output)
+```
+
+```{r}
+keys_seq <- lapply(choords, get_keys)
+#keys_seq <- lapply(choords, get_keys_inversion, inversion = 0L)
+```
+
+```{r}
+keys_coords %>% 
+  highlight_key_sequence(key_sequence = keys_seq) %>% 
+  ggpiano(labels = FALSE) + 
+  facet_wrap(~ seq_no)
+```
+
+And get more helpful facet panel title:
+
+```{r}
+d_chord_nms <- tibble::enframe(choord_names, name = "seq_no", value = "seq_nm")
+d <- keys_coords %>% 
+  highlight_key_sequence(key_sequence = keys_seq) %>% 
+  left_join(d_chord_nms, by = "seq_no") %>% 
+  mutate(seq_lbl = paste0(seq_no, "(", seq_nm, ")")) %>% 
+  mutate(seq_lbl = forcats::fct_inorder(seq_lbl))
+```
+
+```{r}
+d %>% 
+  ggpiano(labels = FALSE) + 
+  facet_wrap(~ seq_lbl)
+```

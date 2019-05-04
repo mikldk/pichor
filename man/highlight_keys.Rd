@@ -9,7 +9,7 @@ highlight_keys(data, keys, color = "lightblue")
 \arguments{
 \item{data}{data with key coordinates, e.g. from \link{keys_coords}}
 
-\item{keys}{key numbers, note that can be greater than 12}
+\item{keys}{key numbers, note that they can be greater than 12}
 
 \item{color}{highlight color}
 }

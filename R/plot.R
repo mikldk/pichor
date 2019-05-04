@@ -42,7 +42,7 @@ ggpiano <- function(data = keys_coords, labels = TRUE, ...) {
 #' Highlight keys
 #' 
 #' @param data data with key coordinates, e.g. from [keys_coords]
-#' @param keys key numbers, note that can be greater than 12
+#' @param keys key numbers, note that they can be greater than 12
 #' @param color highlight color
 #' 
 #' @importFrom dplyr mutate case_when
@@ -54,6 +54,8 @@ highlight_keys <- function(data, keys, color = "lightblue") {
     stop("data must be a pichor_key_koords")
   }
   
+  stopifnot(!is.integer(keys))
+
   unknown_keys <- setdiff(keys, data %>% pull(key))
   if (length(unknown_keys) > 0) {
     stop("Some keys were unknown: ", paste0(unknown_keys, collapse = ", "))
@@ -104,3 +106,63 @@ highlight_chord <- function(data, chord, inversion = 0L, highest_tone = NULL, co
   }
 }
 
+
+
+#' Highlight key sequence
+#' 
+#' @param data data with key coordinates, e.g. from [keys_coords]
+#' @param key_sequence list of vector with key numbers, note that they can be greater than 12
+#' @param new_color highlight color for new keys
+#' @param keep_color highlight color for keys kept at same position
+#' 
+#' @return A new dataset with a new column, `seq_no`, that can be used in e.g. plotting
+#' 
+#' @importFrom dplyr mutate case_when bind_rows
+#' @importFrom magrittr "%>%"
+#' 
+#' @export
+highlight_key_sequence <- function(data, 
+                                   key_sequence, 
+                                   new_color = "lightblue", 
+                                   keep_color = "lightgrey") {
+  if (is.null(data) || !is(data, "pichor_key_koords")) {
+    stop("data must be a pichor_key_koords")
+  }
+  
+  stopifnot(is.list(key_sequence))
+  stopifnot(isTRUE(all.equal(key_sequence, lapply(key_sequence, round))))
+  key_sequence <- lapply(key_sequence, as.integer)
+  stopifnot(length(key_sequence) >= 1L)
+  stopifnot(length(key_sequence[[1L]]) >= 1L)
+  
+  unknown_keys <- setdiff(unlist(key_sequence), data %>% pull(key))
+  if (length(unknown_keys) > 0) {
+    stop("Some keys were unknown: ", paste0(unknown_keys, collapse = ", "))
+  }
+  
+  newdatas <- vector("list", length(key_sequence))
+  
+  for (i in seq_along(key_sequence)) {
+    prev_seq <- if (i == 1L) NULL else key_sequence[[i-1L]]
+    seq <- key_sequence[[i]]
+    
+    keep_keys <- intersect(prev_seq, seq)
+    new_keys <- setdiff(seq, keep_keys)
+    
+    newdata <- data %>%
+      dplyr::mutate(key_color = dplyr::case_when(
+        key %in% keep_keys ~ keep_color,
+        key %in% new_keys ~ new_color,
+        TRUE ~ key_color
+      )) %>% 
+      dplyr::mutate(label_color = case_when(
+        key_color == "black" ~ "white",
+        TRUE ~ "black")) %>% 
+      mutate(seq_no = i)
+    
+    newdatas[[i]] <- newdata
+  }
+  newdatas <- dplyr::bind_rows(newdatas)
+  
+  return(newdatas)
+}
