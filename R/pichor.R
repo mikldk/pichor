@@ -9,7 +9,8 @@ NULL
 ## quiets concerns of R CMD check re: the .'s that appear in pipelines
 if (getRversion() >= "2.15.1") {
   # ggpiano:
-  utils::globalVariables(c("layer", 
+  utils::globalVariables(c("keys_coords",
+                           "layer", 
                            "xmin", "xmax", 
                            "ymin", "ymax", 
                            "key", "key_color",
@@ -20,8 +21,7 @@ if (getRversion() >= "2.15.1") {
   utils::globalVariables(c("tone"))
   
   # get_keys_coords:
-  utils::globalVariables(c("key", "tone", "join_key", 
-                           "xmin", "xmax", "ymin"))
+  utils::globalVariables(c("keys_coords"))
   
   # highlight_keys
   utils::globalVariables(c("key"))

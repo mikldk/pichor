@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pichor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9005</span>
       </span>
     </div>
 
@@ -79,7 +79,7 @@
       <h1>Introduction</h1>
                         <h4 class="author">Mikkel Meyer Andersen</h4>
             
-            <h4 class="date">2019-05-02</h4>
+            <h4 class="date">2019-05-04</h4>
       
       
       <div class="hidden name"><code>introduction.Rmd</code></div>
@@ -91,31 +91,31 @@
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a>
 <a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</a>
 <a class="sourceLine" id="cb1-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(pichor)</a></code></pre></div>
+<p>Built-in data with information about some of the keys on a piano:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">keys_coords</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="co">#&gt; # A tibble: 24 x 12</span></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="co">#&gt;      key key_color   xmin  ymin   xmax  ymax layer tones label label_x</span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="co">#&gt;    &lt;int&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;lis&gt; &lt;chr&gt;   &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="co">#&gt;  1     1 white     0       0    0.0714     1     1 &lt;chr… C      0.0357</span></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="co">#&gt;  2     2 black     0.0536  0.45 0.0893     1     2 &lt;chr… "C#\…  0.0714</span></a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="co">#&gt;  3     3 white     0.0714  0    0.143      1     1 &lt;chr… D      0.107 </span></a>
+<a class="sourceLine" id="cb2-8" title="8"><span class="co">#&gt;  4     4 black     0.125   0.45 0.161      1     2 &lt;chr… "D#\…  0.143 </span></a>
+<a class="sourceLine" id="cb2-9" title="9"><span class="co">#&gt;  5     5 white     0.143   0    0.214      1     1 &lt;chr… E      0.179 </span></a>
+<a class="sourceLine" id="cb2-10" title="10"><span class="co">#&gt;  6     6 white     0.214   0    0.286      1     1 &lt;chr… F      0.25  </span></a>
+<a class="sourceLine" id="cb2-11" title="11"><span class="co">#&gt;  7     7 black     0.268   0.45 0.304      1     2 &lt;chr… "F#\…  0.286 </span></a>
+<a class="sourceLine" id="cb2-12" title="12"><span class="co">#&gt;  8     8 white     0.286   0    0.357      1     1 &lt;chr… G      0.321 </span></a>
+<a class="sourceLine" id="cb2-13" title="13"><span class="co">#&gt;  9     9 black     0.339   0.45 0.375      1     2 &lt;chr… "G#\…  0.357 </span></a>
+<a class="sourceLine" id="cb2-14" title="14"><span class="co">#&gt; 10    10 white     0.357   0    0.429      1     1 &lt;chr… A      0.393 </span></a>
+<a class="sourceLine" id="cb2-15" title="15"><span class="co">#&gt; # … with 14 more rows, and 2 more variables: label_y &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb2-16" title="16"><span class="co">#&gt; #   label_color &lt;chr&gt;</span></a></code></pre></div>
 <p>Details for drawing a diagram of a piano:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">d &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_keys_coords.html">get_keys_coords</a></span>()</a>
-<a class="sourceLine" id="cb2-2" title="2">d</a>
-<a class="sourceLine" id="cb2-3" title="3"><span class="co">#&gt; # A tibble: 24 x 12</span></a>
-<a class="sourceLine" id="cb2-4" title="4"><span class="co">#&gt;      key key_color   xmin  ymin   xmax  ymax layer tones label label_x</span></a>
-<a class="sourceLine" id="cb2-5" title="5"><span class="co">#&gt;    &lt;int&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;lis&gt; &lt;chr&gt;   &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb2-6" title="6"><span class="co">#&gt;  1     1 white     0       0    0.0714     1     1 &lt;chr… C      0.0357</span></a>
-<a class="sourceLine" id="cb2-7" title="7"><span class="co">#&gt;  2     2 black     0.0536  0.45 0.0893     1     2 &lt;chr… "C#\…  0.0714</span></a>
-<a class="sourceLine" id="cb2-8" title="8"><span class="co">#&gt;  3     3 white     0.0714  0    0.143      1     1 &lt;chr… D      0.107 </span></a>
-<a class="sourceLine" id="cb2-9" title="9"><span class="co">#&gt;  4     4 black     0.125   0.45 0.161      1     2 &lt;chr… "D#\…  0.143 </span></a>
-<a class="sourceLine" id="cb2-10" title="10"><span class="co">#&gt;  5     5 white     0.143   0    0.214      1     1 &lt;chr… E      0.179 </span></a>
-<a class="sourceLine" id="cb2-11" title="11"><span class="co">#&gt;  6     6 white     0.214   0    0.286      1     1 &lt;chr… F      0.25  </span></a>
-<a class="sourceLine" id="cb2-12" title="12"><span class="co">#&gt;  7     7 black     0.268   0.45 0.304      1     2 &lt;chr… "F#\…  0.286 </span></a>
-<a class="sourceLine" id="cb2-13" title="13"><span class="co">#&gt;  8     8 white     0.286   0    0.357      1     1 &lt;chr… G      0.321 </span></a>
-<a class="sourceLine" id="cb2-14" title="14"><span class="co">#&gt;  9     9 black     0.339   0.45 0.375      1     2 &lt;chr… "G#\…  0.357 </span></a>
-<a class="sourceLine" id="cb2-15" title="15"><span class="co">#&gt; 10    10 white     0.357   0    0.429      1     1 &lt;chr… A      0.393 </span></a>
-<a class="sourceLine" id="cb2-16" title="16"><span class="co">#&gt; # … with 14 more rows, and 2 more variables: label_y &lt;dbl&gt;,</span></a>
-<a class="sourceLine" id="cb2-17" title="17"><span class="co">#&gt; #   label_color &lt;chr&gt;</span></a></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="../reference/ggpiano.html">ggpiano</a></span>(d)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="../reference/ggpiano.html">ggpiano</a></span>(keys_coords)</a></code></pre></div>
 <p><img src="introduction_files/figure-html/unnamed-chunk-3-1.png" width="768"></p>
 <p>Remove key labels:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="../reference/ggpiano.html">ggpiano</a></span>(d, <span class="dt">labels =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="../reference/ggpiano.html">ggpiano</a></span>(keys_coords, <span class="dt">labels =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <p><img src="introduction_files/figure-html/unnamed-chunk-4-1.png" width="768"></p>
 <p>Highlight certain keys:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">d <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">keys_coords <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb5-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/highlight_keys.html">highlight_keys</a></span>(<span class="dt">keys =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">14</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-3" title="3"><span class="st">  </span><span class="kw"><a href="../reference/ggpiano.html">ggpiano</a></span>()</a></code></pre></div>
 <p><img src="introduction_files/figure-html/unnamed-chunk-5-1.png" width="768"></p>
@@ -130,11 +130,11 @@
 <a class="sourceLine" id="cb6-8" title="8"><span class="kw"><a href="../reference/get_keys_highest_tone.html">get_keys_highest_tone</a></span>(<span class="dt">chord =</span> chrd_Fsm, <span class="dt">highest_tone =</span> <span class="st">"A"</span>)</a>
 <a class="sourceLine" id="cb6-9" title="9"><span class="co">#&gt; [1]  2  7 10</span></a></code></pre></div>
 <p>Highlight chords:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">d <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">keys_coords <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb7-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/highlight_chord.html">highlight_chord</a></span>(<span class="dt">chord =</span> chrd_Fsm) <span class="op">%&gt;%</span><span class="st">  </span><span class="co"># root form by default</span></a>
 <a class="sourceLine" id="cb7-3" title="3"><span class="st">  </span><span class="kw"><a href="../reference/ggpiano.html">ggpiano</a></span>()</a></code></pre></div>
 <p><img src="introduction_files/figure-html/unnamed-chunk-7-1.png" width="768"></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">d <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">keys_coords <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb8-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/highlight_chord.html">highlight_chord</a></span>(<span class="dt">chord =</span> chrd_Fsm, <span class="dt">highest_tone =</span> <span class="st">"A"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb8-3" title="3"><span class="st">  </span><span class="kw"><a href="../reference/ggpiano.html">ggpiano</a></span>()</a></code></pre></div>
 <p><img src="introduction_files/figure-html/unnamed-chunk-7-2.png" width="768"></p>
@@ -149,15 +149,15 @@
 <a class="sourceLine" id="cb9-8" title="8"><span class="kw"><a href="../reference/get_keys_inversion.html">get_keys_inversion</a></span>(<span class="dt">chord =</span> chrd_Bm, <span class="dt">inversion =</span> <span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb9-9" title="9"><span class="co">#&gt; [1]  7 12 15</span></a></code></pre></div>
 <p>Highlight chord inversions:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">d <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">keys_coords <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb10-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/highlight_chord.html">highlight_chord</a></span>(<span class="dt">chord =</span> chrd_Bm, <span class="dt">inversion =</span> 0L) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb10-3" title="3"><span class="st">  </span><span class="kw"><a href="../reference/ggpiano.html">ggpiano</a></span>()</a></code></pre></div>
 <p><img src="introduction_files/figure-html/unnamed-chunk-9-1.png" width="768"></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">d <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">keys_coords <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb11-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/highlight_chord.html">highlight_chord</a></span>(<span class="dt">chord =</span> chrd_Bm, <span class="dt">inversion =</span> 1L) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb11-3" title="3"><span class="st">  </span><span class="kw"><a href="../reference/ggpiano.html">ggpiano</a></span>()</a></code></pre></div>
 <p><img src="introduction_files/figure-html/unnamed-chunk-9-2.png" width="768"></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">d <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">keys_coords <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb12-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/highlight_chord.html">highlight_chord</a></span>(<span class="dt">chord =</span> chrd_Bm, <span class="dt">inversion =</span> 2L) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb12-3" title="3"><span class="st">  </span><span class="kw"><a href="../reference/ggpiano.html">ggpiano</a></span>()</a></code></pre></div>
 <p><img src="introduction_files/figure-html/unnamed-chunk-9-3.png" width="768"></p>

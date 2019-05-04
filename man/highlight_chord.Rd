@@ -8,7 +8,7 @@ highlight_chord(data, chord, inversion = 0L, highest_tone = NULL,
   color = "lightblue")
 }
 \arguments{
-\item{data}{data with key coordinates, e.g. from \code{\link[=get_keys_coords]{get_keys_coords()}}}
+\item{data}{data with key coordinates, e.g. from \link{keys_coords}}
 
 \item{chord}{chord to highlight, e.g. from \code{\link[=construct_chord_major]{construct_chord_major()}} or \code{\link[=construct_chord_raw]{construct_chord_raw()}}}
 

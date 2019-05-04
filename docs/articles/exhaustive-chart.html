@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pichor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9005</span>
       </span>
     </div>
 
@@ -79,7 +79,7 @@
       <h1>Exhaustive chart</h1>
                         <h4 class="author">Mikkel Meyer Andersen</h4>
             
-            <h4 class="date">2019-05-02</h4>
+            <h4 class="date">2019-05-04</h4>
       
       
       <div class="hidden name"><code>exhaustive-chart.Rmd</code></div>
@@ -95,12 +95,11 @@
 <a class="sourceLine" id="cb1-5" title="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(grid)</a>
 <a class="sourceLine" id="cb1-6" title="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(gridExtra)</a>
 <a class="sourceLine" id="cb1-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(pichor)</a></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">d_keys_coords &lt;-<span class="st"> </span><span class="kw"><a href="../reference/get_keys_coords.html">get_keys_coords</a></span>()</a>
-<a class="sourceLine" id="cb2-2" title="2">d_tones &lt;-<span class="st"> </span>d_keys_coords <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-3" title="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(key <span class="op">&lt;=</span><span class="st"> </span><span class="dv">12</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-4" title="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/rowwise.html">rowwise</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-5" title="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">tone =</span> tones[<span class="dv">1</span>]) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-6" title="6"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(key, tone, label)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">d_tones &lt;-<span class="st"> </span>keys_coords <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(key <span class="op">&lt;=</span><span class="st"> </span><span class="dv">12</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/rowwise.html">rowwise</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">tone =</span> tones[<span class="dv">1</span>]) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(key, tone, label)</a></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">d_tones_choords &lt;-<span class="st"> </span>d_tones <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb3-2" title="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/rowwise.html">rowwise</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb3-3" title="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(</a>
@@ -162,7 +161,7 @@
 <a class="sourceLine" id="cb4-10" title="10">    angle &lt;-<span class="st"> </span><span class="dv">0</span></a>
 <a class="sourceLine" id="cb4-11" title="11">  }</a>
 <a class="sourceLine" id="cb4-12" title="12">    </a>
-<a class="sourceLine" id="cb4-13" title="13">  p &lt;-<span class="st"> </span>d_keys_coords <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-13" title="13">  p &lt;-<span class="st"> </span>keys_coords <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb4-14" title="14"><span class="st">    </span><span class="kw"><a href="../reference/highlight_keys.html">highlight_keys</a></span>(<span class="dt">keys =</span> row <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span>(keys) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/unlist">unlist</a></span>()) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-15" title="15"><span class="st">    </span><span class="kw"><a href="../reference/ggpiano.html">ggpiano</a></span>(<span class="dt">labels =</span> <span class="ot">FALSE</span>) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb4-16" title="16"><span class="st">    </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/annotate">annotate</a></span>(<span class="dt">geom =</span> <span class="st">"text"</span>, <span class="dt">x =</span> <span class="fl">-0.075</span>, <span class="dt">y =</span> <span class="fl">0.5</span>, </a>

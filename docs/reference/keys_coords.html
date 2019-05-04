@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title><code>pichor</code> package — pichor • pichor</title>
+<title>Coordinates to draw a piano — keys_coords • pichor</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="<code>pichor</code> package — pichor" />
+<meta property="og:title" content="Coordinates to draw a piano — keys_coords" />
 
-<meta property="og:description" content="Piano chords in R" />
+<meta property="og:description" content="Coordinates to draw a piano" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -112,24 +112,44 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1><code>pichor</code> package</h1>
+    <h1>Coordinates to draw a piano</h1>
     
-    <div class="hidden name"><code>pichor.Rd</code></div>
+    <div class="hidden name"><code>keys_coords.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Piano chords in R</p>
+    <p>Coordinates to draw a piano</p>
     
     </div>
 
+    <pre class="usage"><span class='no'>keys_coords</span></pre>
         
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>A data frame with 53940 rows and 10 variables:</p><dl class='dl-horizontal'>
+<dt>key</dt><dd><p>key number</p></dd>
+<dt>key_color</dt><dd><p>color of the key</p></dd>
+<dt>xmin</dt><dd><p>coordinate</p></dd>
+<dt>ymin</dt><dd><p>coordinate</p></dd>
+<dt>xmax</dt><dd><p>coordinate</p></dd>
+<dt>ymax</dt><dd><p>coordinate</p></dd>
+<dt>layer</dt><dd><p>white keys in layer 1, black in layer 2, used for plotting</p></dd>
+<dt>tones</dt><dd><p>the key's tones</p></dd>
+<dt>label</dt><dd><p>a key's label</p></dd>
+<dt>label_x</dt><dd><p>coordinate</p></dd>
+<dt>label_y</dt><dd><p>coordinate</p></dd>
+<dt>label_color</dt><dd><p>the label's color</p></dd>
+</dl>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-                </ul>
+      
+      <li><a href="#format">Format</a></li>
+          </ul>
 
   </div>
 </div>

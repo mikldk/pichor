@@ -28,8 +28,7 @@ library(pichor)
 ```
 
 ```{r}
-d_keys_coords <- get_keys_coords()
-d_tones <- d_keys_coords %>% 
+d_tones <- keys_coords %>% 
   filter(key <= 12) %>% 
   rowwise() %>% 
   mutate(tone = tones[1]) %>% 
@@ -87,7 +86,7 @@ for (i in seq_along(figures)) {
     angle <- 0
   }
     
-  p <- d_keys_coords %>% 
+  p <- keys_coords %>% 
     highlight_keys(keys = row %>% pull(keys) %>% unlist()) %>%
     ggpiano(labels = FALSE) + 
     annotate(geom = "text", x = -0.075, y = 0.5, 

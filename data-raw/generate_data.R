@@ -128,14 +128,38 @@ generate_sysdata <- function() {
       key_color = ifelse(nchar(tone) == 1, "white", "black")
     )
   
-  keys_coords <- generate_keys_coords()
-  
   # Save all data
-  # Internal:
-  usethis::use_data(tone_properties, keys_coords,
+  ###############################################################
+  # Internal
+  ###############################################################
+  usethis::use_data(tone_properties,
                     internal = TRUE, overwrite = TRUE)
+  #usethis::use_data(tone_properties, keys_coords,
+  #                  internal = TRUE, overwrite = TRUE)
   
-  # # External
-  # usethis::use_data(keys_coords, 
-  #                   internal = FALSE, overwrite = TRUE)
+  ###############################################################
+  # External
+  ###############################################################
+  d <- tone_properties %>%
+    dplyr::select(key, tone) %>% 
+    dplyr::group_by(key) %>% 
+    dplyr::summarise(tones = list(tone),
+                     label = paste0(tone, collapse = "\n"))
+  
+  keys_coords_raw <- generate_keys_coords()
+  keys_coords <- keys_coords_raw %>% 
+    dplyr::mutate(join_key = ((key - 1) %% 12) + 1) %>% 
+    dplyr::left_join(d, by = c("join_key" = "key")) %>% 
+    dplyr::select(-join_key) %>% 
+    dplyr::mutate(label_x = (xmin+xmax)/2,
+                  label_y = ymin + 0.1) %>% 
+    dplyr::mutate(label_color = case_when(
+      key_color == "black" ~ "white",
+      TRUE ~ "black"))
+  
+  # Put here instead of where it's generated to ease development process
+  class(keys_coords) <- c("pichor_key_koords", class(keys_coords))
+  
+  usethis::use_data(keys_coords, 
+                    internal = FALSE, overwrite = TRUE)
 }

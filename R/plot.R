@@ -8,7 +8,7 @@
 #' @importFrom dplyr pull 
 #' 
 #' @export
-ggpiano <- function(data = get_keys_coords(), labels = TRUE, ...) {
+ggpiano <- function(data = keys_coords, labels = TRUE, ...) {
   envir <- parent.frame()
   
   p <- ggplot2::ggplot(data = data, environment = envir)
@@ -41,7 +41,7 @@ ggpiano <- function(data = get_keys_coords(), labels = TRUE, ...) {
 
 #' Highlight keys
 #' 
-#' @param data data with key coordinates, e.g. from [get_keys_coords()]
+#' @param data data with key coordinates, e.g. from [keys_coords]
 #' @param keys key numbers, note that can be greater than 12
 #' @param color highlight color
 #' 
@@ -73,7 +73,7 @@ highlight_keys <- function(data, keys, color = "lightblue") {
 
 #' Highlight coord
 #' 
-#' @param data data with key coordinates, e.g. from [get_keys_coords()]
+#' @param data data with key coordinates, e.g. from [keys_coords]
 #' @param chord chord to highlight, e.g. from [construct_chord_major()] or [construct_chord_raw()]
 #' @param inversion inversion number
 #' @param highest_tone if inversion by highest tone is wanted

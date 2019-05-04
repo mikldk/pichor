@@ -1,3 +1,22 @@
+#' Coordinates to draw a piano
+#'
+#' @format A data frame with 53940 rows and 10 variables:
+#' \describe{
+#'   \item{key}{key number}
+#'   \item{key_color}{color of the key}
+#'   \item{xmin}{coordinate}
+#'   \item{ymin}{coordinate}
+#'   \item{xmax}{coordinate}
+#'   \item{ymax}{coordinate}
+#'   \item{layer}{white keys in layer 1, black in layer 2, used for plotting}
+#'   \item{tones}{the key's tones}
+#'   \item{label}{a key's label}
+#'   \item{label_x}{coordinate}
+#'   \item{label_y}{coordinate}
+#'   \item{label_color}{the label's color}
+#' }
+"keys_coords"
+
 #' Get coordinates to draw a piano
 #'
 #' @importFrom dplyr select left_join mutate group_by summarise
@@ -5,25 +24,8 @@
 #' 
 #' @export
 get_keys_coords <- function() {
-  d <- tone_properties %>%
-    dplyr::select(key, tone) %>% 
-    dplyr::group_by(key) %>% 
-    dplyr::summarise(tones = list(tone),
-              label = paste0(tone, collapse = "\n"))
-    
-  res <- keys_coords %>% 
-    dplyr::mutate(join_key = ((key - 1) %% 12) + 1) %>% 
-    dplyr::left_join(d, by = c("join_key" = "key")) %>% 
-    dplyr::select(-join_key) %>% 
-    dplyr::mutate(label_x = (xmin+xmax)/2,
-                  label_y = ymin + 0.1) %>% 
-    dplyr::mutate(label_color = case_when(
-             key_color == "black" ~ "white",
-             TRUE ~ "black"))
-  
-  # Put here instead of where it's generated to ease development process
-  class(res) <- c("pichor_key_koords", class(res))
-  return(res)
+  .Deprecated("keys_coords")
+  return(keys_coords)
 }
 
 print.pichor_key_koords <- function(x, ...) {
