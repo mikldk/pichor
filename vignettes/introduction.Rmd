@@ -55,9 +55,12 @@ keys_coords %>%
 Work with chords:
 
 ```{r}
-construct_chord_raw(root_tone = "F#", distances_rel = c(4, 3))
+chrd <- construct_chord_raw(root_tone = "F#", distances_rel = c(4, 3))
+chrd
+as.character(chrd, brief = TRUE)
 chrd_Fsm <- construct_chord_minor(root_tone = "F#")
 chrd_Fsm
+as.character(chrd_Fsm, brief = TRUE)
 get_keys(chord = chrd_Fsm)
 get_keys_highest_tone(chord = chrd_Fsm, highest_tone = "A")
 ```

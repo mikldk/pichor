@@ -36,7 +36,7 @@ d_tones <- keys_coords %>%
 ```
 
 ```{r}
-d_tones_choords <- d_tones %>% 
+d_tones_chords <- d_tones %>% 
   rowwise() %>% 
   mutate(
     major = list(construct_chord_major(root_tone = tone)),
@@ -70,14 +70,14 @@ d_tones_choords <- d_tones %>%
     TRUE ~ caption
   )) %>% 
   arrange(tone, type, variant)
-d_tones_choords
+d_tones_chords
 ```
 
 ```{r}
-figures <- vector("list", nrow(d_tones_choords))
+figures <- vector("list", nrow(d_tones_chords))
 
 for (i in seq_along(figures)) {
-  row <- d_tones_choords %>% slice(i)
+  row <- d_tones_chords %>% slice(i)
   size <- 2
   angle <- 90
   
@@ -106,9 +106,9 @@ for (i in seq_along(figures)) {
 ```
 
 ```{r}
-nrows <- d_tones_choords %>% distinct(tone, type) %>% nrow()
-stopifnot(nrow(d_tones_choords) %% nrows == 0)
-ncols <- nrow(d_tones_choords) / nrows
+nrows <- d_tones_chords %>% distinct(tone, type) %>% nrow()
+stopifnot(nrow(d_tones_chords) %% nrows == 0)
+ncols <- nrow(d_tones_chords) / nrows
 ```
 
 ```{r, fig.width = 10, fig.height = 20}

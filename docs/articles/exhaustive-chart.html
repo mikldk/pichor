@@ -82,7 +82,7 @@
       <h1>Exhaustive chart</h1>
                         <h4 class="author">Mikkel Meyer Andersen</h4>
             
-            <h4 class="date">2019-05-04</h4>
+            <h4 class="date">2019-05-05</h4>
       
       
       <div class="hidden name"><code>exhaustive-chart.Rmd</code></div>
@@ -103,7 +103,7 @@
 <a class="sourceLine" id="cb2-3" title="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/rowwise.html">rowwise</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb2-4" title="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">tone =</span> tones[<span class="dv">1</span>]) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb2-5" title="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(key, tone, label)</a></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">d_tones_choords &lt;-<span class="st"> </span>d_tones <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">d_tones_chords &lt;-<span class="st"> </span>d_tones <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb3-2" title="2"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/rowwise.html">rowwise</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb3-3" title="3"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(</a>
 <a class="sourceLine" id="cb3-4" title="4">    <span class="dt">major =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="kw"><a href="../reference/construct_chord_major.html">construct_chord_major</a></span>(<span class="dt">root_tone =</span> tone)),</a>
@@ -137,7 +137,7 @@
 <a class="sourceLine" id="cb3-32" title="32">    <span class="ot">TRUE</span> <span class="op">~</span><span class="st"> </span>caption</a>
 <a class="sourceLine" id="cb3-33" title="33">  )) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb3-34" title="34"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(tone, type, variant)</a>
-<a class="sourceLine" id="cb3-35" title="35">d_tones_choords</a>
+<a class="sourceLine" id="cb3-35" title="35">d_tones_chords</a>
 <a class="sourceLine" id="cb3-36" title="36"><span class="co">#&gt; # A tibble: 72 x 7</span></a>
 <a class="sourceLine" id="cb3-37" title="37"><span class="co">#&gt;      key tone  label    type  variant    keys      caption              </span></a>
 <a class="sourceLine" id="cb3-38" title="38"><span class="co">#&gt;    &lt;int&gt; &lt;fct&gt; &lt;chr&gt;    &lt;chr&gt; &lt;fct&gt;      &lt;list&gt;    &lt;chr&gt;                </span></a>
@@ -152,10 +152,10 @@
 <a class="sourceLine" id="cb3-47" title="47"><span class="co">#&gt;  9     2 C#    "C#\nDb" major inversion2 &lt;dbl [3]&gt; "C#/Db\n(inversion2)"</span></a>
 <a class="sourceLine" id="cb3-48" title="48"><span class="co">#&gt; 10     2 C#    "C#\nDb" minor root       &lt;dbl [3]&gt; "C#m\nDbm"           </span></a>
 <a class="sourceLine" id="cb3-49" title="49"><span class="co">#&gt; # … with 62 more rows</span></a></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">figures &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/vector">vector</a></span>(<span class="st">"list"</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(d_tones_choords))</a>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">figures &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/vector">vector</a></span>(<span class="st">"list"</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(d_tones_chords))</a>
 <a class="sourceLine" id="cb4-2" title="2"></a>
 <a class="sourceLine" id="cb4-3" title="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq_along</a></span>(figures)) {</a>
-<a class="sourceLine" id="cb4-4" title="4">  row &lt;-<span class="st"> </span>d_tones_choords <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span>(i)</a>
+<a class="sourceLine" id="cb4-4" title="4">  row &lt;-<span class="st"> </span>d_tones_chords <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span>(i)</a>
 <a class="sourceLine" id="cb4-5" title="5">  size &lt;-<span class="st"> </span><span class="dv">2</span></a>
 <a class="sourceLine" id="cb4-6" title="6">  angle &lt;-<span class="st"> </span><span class="dv">90</span></a>
 <a class="sourceLine" id="cb4-7" title="7">  </a>
@@ -181,9 +181,9 @@
 <a class="sourceLine" id="cb4-27" title="27"></a>
 <a class="sourceLine" id="cb4-28" title="28">  figures[[i]] &lt;-<span class="st"> </span>p</a>
 <a class="sourceLine" id="cb4-29" title="29">}</a></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">nrows &lt;-<span class="st"> </span>d_tones_choords <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span>(tone, type) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>()</a>
-<a class="sourceLine" id="cb5-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/stopifnot">stopifnot</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(d_tones_choords) <span class="op">%%</span><span class="st"> </span>nrows <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb5-3" title="3">ncols &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(d_tones_choords) <span class="op">/</span><span class="st"> </span>nrows</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">nrows &lt;-<span class="st"> </span>d_tones_chords <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span>(tone, type) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>()</a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/stopifnot">stopifnot</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(d_tones_chords) <span class="op">%%</span><span class="st"> </span>nrows <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb5-3" title="3">ncols &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(d_tones_chords) <span class="op">/</span><span class="st"> </span>nrows</a></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">p &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/gridExtra/topics/arrangeGrob">arrangeGrob</a></span>(<span class="dt">grobs =</span> figures, <span class="dt">ncol =</span> ncols, <span class="dt">nrow =</span> nrows)</a>
 <a class="sourceLine" id="cb6-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/grid/topics/grid.draw">grid.draw</a></span>(p)</a></code></pre></div>
 <p><img src="exhaustive-chart_files/figure-html/unnamed-chunk-6-1.png" width="960"></p>

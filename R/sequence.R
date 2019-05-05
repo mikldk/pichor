@@ -2,7 +2,7 @@ key_sequence_inversions <- function(key_sequence, inversions) {
   stopifnot(length(key_sequence) == length(inversions))
   
   new_keys_seq <- lapply(seq_along(key_sequence), function(i) {
-    # TODO: optimise?
+    # TODO: optimise
     inversion <- inversions[[i]]
     keys <- key_sequence[[i]]
     for (i in seq_len(inversion)) {

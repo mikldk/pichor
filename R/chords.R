@@ -101,11 +101,16 @@ get_keys_from_sequence <- function(origin_key, distances_origin) {
 #' 
 #' @param root_tone root tone of chord
 #' @param distances_rel relative distances: major is e.g. `c(4, 3)`, minor `c(3, 4)` etc.
+#' @param chord_type a chord type, e.g. major, minor
+#' @param label_suffix a suffix, e.g. `"m"` for minor
 #' 
 #' @importFrom magrittr "%>%"
 #' @importFrom tibble tibble
 #' @export
-construct_chord_raw <- function(root_tone, distances_rel) {
+construct_chord_raw <- function(root_tone, distances_rel, 
+                                chord_type = NULL,
+                                label_suffix = NULL) {
+  
   distances_from_root_tone <- cumsum(distances_rel)
   
   keys <- get_keys_from_sequence(get_key(root_tone), distances_from_root_tone)
@@ -119,7 +124,9 @@ construct_chord_raw <- function(root_tone, distances_rel) {
     distances_rel = distances_rel,
     distances_from_root_tone = distances_from_root_tone,
     all_keys = keys,
-    all_tones = tones#,
+    all_tones = tones,
+    chord_type = chord_type,
+    label_suffix = label_suffix
     #inversion_no = 0L
   )
   
@@ -128,11 +135,33 @@ construct_chord_raw <- function(root_tone, distances_rel) {
   return(res)
 }
 
+#' Get textual description of chord
+#' 
+#' @param x a `pichor_chord` from e.g. [construct_chord_raw()], 
+#' [construct_chord_major()] or [construct_chord_minor()]
+#' @param brief brief description
+#' @param \dots currently not used
+#' 
 #' @export
-print.pichor_chord <- function(x, ...) {
-  cat("Chord with root tone ", 
-      x$root_tone, " and then tones ", 
-      paste0(x$other_tones, collapse = ", "), "\n", sep = "")
+as.character.pichor_chord <- function(x, brief = FALSE, ...) {
+  label_suffix <- if (is.null(x$label_suffix)) "" else x$label_suffix
+  
+  if (brief) {
+    str <- paste0(x$root_tone, label_suffix)
+    return(str)
+  }
+  
+  chord_type <- if (is.null(x$chord_type)) "" else paste0(" (", x$chord_type, ")")
+
+  str <- paste0(x$root_tone, label_suffix, " chord", chord_type, " with tones ", 
+      paste0(x$other_tones, collapse = ", "))
+  
+  return(str)
+}
+
+#' @export
+print.pichor_chord <- function(x, brief = FALSE, ...) {
+  cat(as.character(x, brief = brief), "\n", sep = "")
 }
 
 #' Get major of chord
@@ -144,17 +173,13 @@ print.pichor_chord <- function(x, ...) {
 #' @export
 construct_chord_major <- function(root_tone) {
   res <- construct_chord_raw(root_tone = root_tone, 
-                             distances_rel = c(4L, 3L))
+                             distances_rel = c(4L, 3L),
+                             chord_type = "major",
+                             label_suffix = NULL)
   
   class(res) <- c("pichor_chord_major", "pichor_chord")
   
   return(res)
-}
-
-#' @export
-print.pichor_chord_major <- function(x, ...) {
-  cat("Major ", x$root_tone, " chord with tones ", 
-      paste0(x$other_tones, collapse = ", "), "\n", sep = "")
 }
 
 #' Get minor of chord
@@ -166,19 +191,14 @@ print.pichor_chord_major <- function(x, ...) {
 #' @export
 construct_chord_minor <- function(root_tone) {
   res <- construct_chord_raw(root_tone = root_tone, 
-                             distances_rel = c(3L, 4L))
+                             distances_rel = c(3L, 4L),
+                             chord_type = "minor",
+                             label_suffix = "m")
   
   class(res) <- c("pichor_chord_minor", "pichor_chord")
   
   return(res)
 }
-
-#' @export
-print.pichor_chord_minor <- function(x, ...) {
-  cat("Minor ", x$root_tone, "m chord with tones ", 
-      paste0(x$other_tones, collapse = ", "), "\n", sep = "")
-}
-
 
 get_keys_next_inversion <- function(keys) {
   new_keys <- c(keys[-1L], keys[1L] + 12L)
@@ -285,7 +305,7 @@ get_keys_inversion <- function(chord, inversion = 0L) {
     stop("invalid inversion")
   }
   
-  # TODO: optimise?
+  # TODO: optimise
   keys <- chord$all_keys
   for (i in seq_len(inversion)) {
     keys <- get_keys_next_inversion(keys)

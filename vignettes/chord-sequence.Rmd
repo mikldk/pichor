@@ -13,6 +13,8 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   message = FALSE,
+  fig.width = 8,
+  fig.height = 4,
   comment = "#>"
 )
 ```
@@ -26,7 +28,7 @@ library(pichor)
 
 # Minimal example
 
-```{r}
+```{r, fig.height = 2}
 keys_coords %>% 
   highlight_key_sequence(key_sequence = list(c(1, 2, 3), c(2, 3, 4))) %>% 
   ggpiano(labels = FALSE) + 
@@ -35,24 +37,22 @@ keys_coords %>%
 
 # Slightly larger example
 
-
-"Let it be" by Beatles has initially chords G, D, Em, C, G, D, C.
+A version of "Let it be" by Beatles initially has chords G, D, Em, C, G, D, C.
 
 ```{r}
-choords <- list(construct_chord_major("G"),
-                construct_chord_major("D"),
-                construct_chord_minor("E"), # Em
-                construct_chord_major("C"),
-                construct_chord_major("G"),
-                construct_chord_major("D"),
-                construct_chord_major("C"))
-choords
-choord_names <- sapply(choords, capture.output)
+chords <- list(construct_chord_major("G"),
+               construct_chord_major("D"),
+               construct_chord_minor("E"), # Em
+               construct_chord_major("C"),
+               construct_chord_major("G"),
+               construct_chord_major("D"),
+               construct_chord_major("C"))
+chords
+chord_names <- sapply(chords, as.character, brief = TRUE)
 ```
 
 ```{r}
-key_seq <- lapply(choords, get_keys)
-#key_seq <- lapply(choords, get_keys_inversion, inversion = 0L)
+key_seq <- lapply(chords, get_keys)
 ```
 
 ```{r}
@@ -65,16 +65,16 @@ keys_coords %>%
 And get more helpful facet panel title:
 
 ```{r}
-d_chord_nms <- tibble::enframe(choord_names, name = "seq_no", value = "seq_nm")
-d <- keys_coords %>% 
-  highlight_key_sequence(key_sequence = key_seq) %>% 
-  left_join(d_chord_nms, by = "seq_no") %>% 
-  mutate(seq_lbl = paste0(seq_no, "(", seq_nm, ")")) %>% 
+d_chord_nms <- tibble::enframe(chord_names, name = "seq_no", value = "seq_nm") %>% 
+  mutate(seq_lbl = paste0(seq_no, ": ", seq_nm)) %>% 
   mutate(seq_lbl = forcats::fct_inorder(seq_lbl))
+d_chord_nms
 ```
 
 ```{r}
-d %>% 
+keys_coords %>% 
+  highlight_key_sequence(key_sequence = key_seq) %>% 
+  left_join(d_chord_nms, by = "seq_no") %>% 
   ggpiano(labels = FALSE) + 
   facet_wrap(~ seq_lbl)
 ```
@@ -83,21 +83,18 @@ d %>%
 # Finding better inversions
 
 Currently only one method is available for finding better inversions. 
-It is minimising the distances between keys in consecutive chords. 
+It is minimising the distances between keys in consecutive chords, where 
+distance is the number of keys not used anymore plus new keys.  
 And with an exhaustive approach that is only feasible for shorter sequences. 
 
 ```{r}
-key_seq
 opt_res <- optim_min_dist_exhaustive(key_sequence = key_seq)
-opt_res
 ```
 
 ```{r}
 keys_coords %>% 
   highlight_key_sequence(key_sequence = opt_res$best) %>% 
   left_join(d_chord_nms, by = "seq_no") %>% 
-  mutate(seq_lbl = paste0(seq_no, "(", seq_nm, ")")) %>% 
-  mutate(seq_lbl = forcats::fct_inorder(seq_lbl)) %>% 
   ggpiano(labels = FALSE) + 
   facet_wrap(~ seq_lbl) +
   labs(title = "Best inversions")
@@ -107,8 +104,6 @@ keys_coords %>%
 keys_coords %>% 
   highlight_key_sequence(key_sequence = opt_res$worst) %>% 
   left_join(d_chord_nms, by = "seq_no") %>% 
-  mutate(seq_lbl = paste0(seq_no, "(", seq_nm, ")")) %>% 
-  mutate(seq_lbl = forcats::fct_inorder(seq_lbl)) %>% 
   ggpiano(labels = FALSE) + 
   facet_wrap(~ seq_lbl) +
   labs(title = "Worst inversions")

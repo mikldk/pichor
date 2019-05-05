@@ -82,7 +82,7 @@
       <h1>Introduction</h1>
                         <h4 class="author">Mikkel Meyer Andersen</h4>
             
-            <h4 class="date">2019-05-04</h4>
+            <h4 class="date">2019-05-05</h4>
       
       
       <div class="hidden name"><code>introduction.Rmd</code></div>
@@ -123,15 +123,20 @@
 <a class="sourceLine" id="cb5-3" title="3"><span class="st">  </span><span class="kw"><a href="../reference/ggpiano.html">ggpiano</a></span>()</a></code></pre></div>
 <p><img src="introduction_files/figure-html/unnamed-chunk-5-1.png" width="768"></p>
 <p>Work with chords:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="../reference/construct_chord_raw.html">construct_chord_raw</a></span>(<span class="dt">root_tone =</span> <span class="st">"F#"</span>, <span class="dt">distances_rel =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">4</span>, <span class="dv">3</span>))</a>
-<a class="sourceLine" id="cb6-2" title="2"><span class="co">#&gt; Chord with root tone F# and then tones A#/Bb, C#/Db</span></a>
-<a class="sourceLine" id="cb6-3" title="3">chrd_Fsm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/construct_chord_minor.html">construct_chord_minor</a></span>(<span class="dt">root_tone =</span> <span class="st">"F#"</span>)</a>
-<a class="sourceLine" id="cb6-4" title="4">chrd_Fsm</a>
-<a class="sourceLine" id="cb6-5" title="5"><span class="co">#&gt; Minor F#m chord with tones A, C#/Db</span></a>
-<a class="sourceLine" id="cb6-6" title="6"><span class="kw"><a href="../reference/get_keys.html">get_keys</a></span>(<span class="dt">chord =</span> chrd_Fsm)</a>
-<a class="sourceLine" id="cb6-7" title="7"><span class="co">#&gt; [1]  7 10 14</span></a>
-<a class="sourceLine" id="cb6-8" title="8"><span class="kw"><a href="../reference/get_keys_highest_tone.html">get_keys_highest_tone</a></span>(<span class="dt">chord =</span> chrd_Fsm, <span class="dt">highest_tone =</span> <span class="st">"A"</span>)</a>
-<a class="sourceLine" id="cb6-9" title="9"><span class="co">#&gt; [1]  2  7 10</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">chrd &lt;-<span class="st"> </span><span class="kw"><a href="../reference/construct_chord_raw.html">construct_chord_raw</a></span>(<span class="dt">root_tone =</span> <span class="st">"F#"</span>, <span class="dt">distances_rel =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">4</span>, <span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb6-2" title="2">chrd</a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="co">#&gt; F# chord with tones A#/Bb, C#/Db</span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/character">as.character</a></span>(chrd, <span class="dt">brief =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="co">#&gt; [1] "F#"</span></a>
+<a class="sourceLine" id="cb6-6" title="6">chrd_Fsm &lt;-<span class="st"> </span><span class="kw"><a href="../reference/construct_chord_minor.html">construct_chord_minor</a></span>(<span class="dt">root_tone =</span> <span class="st">"F#"</span>)</a>
+<a class="sourceLine" id="cb6-7" title="7">chrd_Fsm</a>
+<a class="sourceLine" id="cb6-8" title="8"><span class="co">#&gt; F#m chord (minor) with tones A, C#/Db</span></a>
+<a class="sourceLine" id="cb6-9" title="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/character">as.character</a></span>(chrd_Fsm, <span class="dt">brief =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb6-10" title="10"><span class="co">#&gt; [1] "F#m"</span></a>
+<a class="sourceLine" id="cb6-11" title="11"><span class="kw"><a href="../reference/get_keys.html">get_keys</a></span>(<span class="dt">chord =</span> chrd_Fsm)</a>
+<a class="sourceLine" id="cb6-12" title="12"><span class="co">#&gt; [1]  7 10 14</span></a>
+<a class="sourceLine" id="cb6-13" title="13"><span class="kw"><a href="../reference/get_keys_highest_tone.html">get_keys_highest_tone</a></span>(<span class="dt">chord =</span> chrd_Fsm, <span class="dt">highest_tone =</span> <span class="st">"A"</span>)</a>
+<a class="sourceLine" id="cb6-14" title="14"><span class="co">#&gt; [1]  2  7 10</span></a></code></pre></div>
 <p>Highlight chords:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">keys_coords <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb7-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/highlight_chord.html">highlight_chord</a></span>(<span class="dt">chord =</span> chrd_Fsm) <span class="op">%&gt;%</span><span class="st">  </span><span class="co"># root form by default</span></a>
