@@ -31,7 +31,7 @@ library(pichor)
 ```{r, fig.height = 2}
 keys_coords %>% 
   highlight_key_sequence(key_sequence = list(c(1, 2, 3), c(2, 3, 4))) %>% 
-  ggpiano(labels = FALSE) + 
+  ggpiano() + 
   facet_wrap(~ seq_no)
 ```
 
@@ -58,7 +58,7 @@ key_seq <- lapply(chords, get_keys)
 ```{r}
 keys_coords %>% 
   highlight_key_sequence(key_sequence = key_seq) %>% 
-  ggpiano(labels = FALSE) + 
+  ggpiano() + 
   facet_wrap(~ seq_no)
 ```
 
@@ -75,7 +75,7 @@ d_chord_nms
 keys_coords %>% 
   highlight_key_sequence(key_sequence = key_seq) %>% 
   left_join(d_chord_nms, by = "seq_no") %>% 
-  ggpiano(labels = FALSE) + 
+  ggpiano() + 
   facet_wrap(~ seq_lbl)
 ```
 
@@ -95,7 +95,7 @@ opt_res <- optim_min_dist_exhaustive(key_sequence = key_seq)
 keys_coords %>% 
   highlight_key_sequence(key_sequence = opt_res$best) %>% 
   left_join(d_chord_nms, by = "seq_no") %>% 
-  ggpiano(labels = FALSE) + 
+  ggpiano() + 
   facet_wrap(~ seq_lbl) +
   labs(title = "Best inversions")
 ```
@@ -104,7 +104,7 @@ keys_coords %>%
 keys_coords %>% 
   highlight_key_sequence(key_sequence = opt_res$worst) %>% 
   left_join(d_chord_nms, by = "seq_no") %>% 
-  ggpiano(labels = FALSE) + 
+  ggpiano() + 
   facet_wrap(~ seq_lbl) +
   labs(title = "Worst inversions")
 ```

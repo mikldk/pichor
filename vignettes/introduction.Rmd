@@ -38,10 +38,10 @@ Details for drawing a diagram of a piano:
 ggpiano(keys_coords)
 ```
 
-Remove key labels:
+Add key labels:
 
 ```{r}
-ggpiano(keys_coords, labels = FALSE)
+ggpiano(keys_coords, labels = TRUE)
 ```
 
 Highlight certain keys:
@@ -49,7 +49,7 @@ Highlight certain keys:
 ```{r}
 keys_coords %>% 
   highlight_keys(keys = c(7, 10, 14)) %>%
-  ggpiano()
+  ggpiano(labels = TRUE)
 ```
 
 Work with chords:

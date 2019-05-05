@@ -4,7 +4,7 @@
 \alias{ggpiano}
 \title{Plot piano}
 \usage{
-ggpiano(data = keys_coords, labels = TRUE, ...)
+ggpiano(data = keys_coords, labels = FALSE, ...)
 }
 \arguments{
 \item{data}{data to plot, default \code{keys_coords} which is a piano}

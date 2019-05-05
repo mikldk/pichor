@@ -8,7 +8,7 @@
 #' @importFrom dplyr pull 
 #' 
 #' @export
-ggpiano <- function(data = keys_coords, labels = TRUE, ...) {
+ggpiano <- function(data = keys_coords, labels = FALSE, ...) {
   envir <- parent.frame()
   
   p <- ggplot2::ggplot(data = data, environment = envir)

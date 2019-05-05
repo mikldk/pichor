@@ -114,13 +114,13 @@
 <p>Details for drawing a diagram of a piano:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="../reference/ggpiano.html">ggpiano</a></span>(keys_coords)</a></code></pre></div>
 <p><img src="introduction_files/figure-html/unnamed-chunk-3-1.png" width="768"></p>
-<p>Remove key labels:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="../reference/ggpiano.html">ggpiano</a></span>(keys_coords, <span class="dt">labels =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<p>Add key labels:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="../reference/ggpiano.html">ggpiano</a></span>(keys_coords, <span class="dt">labels =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="introduction_files/figure-html/unnamed-chunk-4-1.png" width="768"></p>
 <p>Highlight certain keys:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">keys_coords <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb5-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/highlight_keys.html">highlight_keys</a></span>(<span class="dt">keys =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">14</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-3" title="3"><span class="st">  </span><span class="kw"><a href="../reference/ggpiano.html">ggpiano</a></span>()</a></code></pre></div>
+<a class="sourceLine" id="cb5-3" title="3"><span class="st">  </span><span class="kw"><a href="../reference/ggpiano.html">ggpiano</a></span>(<span class="dt">labels =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="introduction_files/figure-html/unnamed-chunk-5-1.png" width="768"></p>
 <p>Work with chords:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">chrd &lt;-<span class="st"> </span><span class="kw"><a href="../reference/construct_chord_raw.html">construct_chord_raw</a></span>(<span class="dt">root_tone =</span> <span class="st">"F#"</span>, <span class="dt">distances_rel =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">4</span>, <span class="dv">3</span>))</a>
