@@ -112,19 +112,26 @@ highlight_chord <- function(data, chord, inversion = 0L, highest_tone = NULL, co
 #' 
 #' @param data data with key coordinates, e.g. from [keys_coords]
 #' @param key_sequence list of vector with key numbers, note that they can be greater than 12
+#' @param sequence_names names of each element in `key_sequence`
 #' @param new_color highlight color for new keys
 #' @param keep_color highlight color for keys kept at same position
+#' @param remove_color highlight color for removed keys
 #' 
-#' @return A new dataset with a new column, `seq_no`, that can be used in e.g. plotting
+#' @return A new dataset with two new columns: `seq_no`, that can be used in e.g. plotting, 
+#' and `seq_name` that is either `seq_no` of `sequence_names` if provided.
 #' 
-#' @importFrom dplyr mutate case_when bind_rows
+#' @importFrom dplyr mutate case_when bind_rows left_join
+#' @importFrom tibble tibble enframe
+#' @importFrom forcats fct_inorder
 #' @importFrom magrittr "%>%"
 #' 
 #' @export
 highlight_key_sequence <- function(data, 
                                    key_sequence, 
+                                   sequence_names = NULL,
                                    new_color = "lightblue", 
-                                   keep_color = "lightgrey") {
+                                   keep_color = "lightgrey",
+                                   remove_color = "white") {
   if (is.null(data) || !is(data, "pichor_key_koords")) {
     stop("data must be a pichor_key_koords")
   }
@@ -134,6 +141,20 @@ highlight_key_sequence <- function(data,
   key_sequence <- lapply(key_sequence, as.integer)
   stopifnot(length(key_sequence) >= 1L)
   stopifnot(length(key_sequence[[1L]]) >= 1L)
+  
+  if ("seq_no" %in% colnames(data)) {
+    stop("data already has column seq_no")
+  }
+  
+  if ("seq_name" %in% colnames(data)) {
+    stop("data already has column seq_name")
+  }
+  
+  if (!is.null(sequence_names)) {
+    stopifnot(length(sequence_names) == length(key_sequence))
+    sequence_names <- as.character(sequence_names)
+  }
+  
   
   unknown_keys <- setdiff(unlist(key_sequence), data %>% pull(key))
   if (length(unknown_keys) > 0) {
@@ -148,11 +169,13 @@ highlight_key_sequence <- function(data,
     
     keep_keys <- intersect(prev_seq, seq)
     new_keys <- setdiff(seq, keep_keys)
+    removed_keys <- setdiff(prev_seq, seq)
     
     newdata <- data %>%
       dplyr::mutate(key_color = dplyr::case_when(
         key %in% keep_keys ~ keep_color,
         key %in% new_keys ~ new_color,
+        key %in% removed_keys ~ remove_color,
         TRUE ~ key_color
       )) %>% 
       dplyr::mutate(label_color = case_when(
@@ -163,6 +186,23 @@ highlight_key_sequence <- function(data,
     newdatas[[i]] <- newdata
   }
   newdatas <- dplyr::bind_rows(newdatas)
+  
+  d_seq_nms <- tibble::tibble(seq_no = seq_along(key_sequence), 
+                              seq_name = as.character(seq_no))
+
+  if (!is.null(sequence_names)) {
+    d_seq_nms <- tibble::enframe(sequence_names, 
+                                 name = "seq_no", 
+                                 value = "seq_name")
+  }
+  
+  newdatas <- newdatas %>% 
+    dplyr::left_join(d_seq_nms, by = "seq_no") %>% 
+    dplyr::mutate(seq_name = forcats::fct_inorder(seq_name))
+  
+  class(newdatas) <- c("pichor_key_koords_highlight_sequence", 
+                       "pichor_key_koords_highlight", 
+                       class(newdatas))
   
   return(newdatas)
 }

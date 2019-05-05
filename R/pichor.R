@@ -25,4 +25,7 @@ if (getRversion() >= "2.15.1") {
   
   # highlight_keys
   utils::globalVariables(c("key"))
+  
+  # highlight_key_sequence
+  utils::globalVariables(c("seq_no", "seq_name"))
 }

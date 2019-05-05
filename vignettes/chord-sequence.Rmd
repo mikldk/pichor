@@ -32,7 +32,7 @@ library(pichor)
 keys_coords %>% 
   highlight_key_sequence(key_sequence = list(c(1, 2, 3), c(2, 3, 4))) %>% 
   ggpiano() + 
-  facet_wrap(~ seq_no)
+  facet_wrap(~ seq_name)
 ```
 
 # Slightly larger example
@@ -59,22 +59,27 @@ key_seq <- lapply(chords, get_keys)
 keys_coords %>% 
   highlight_key_sequence(key_sequence = key_seq) %>% 
   ggpiano() + 
-  facet_wrap(~ seq_no)
+  facet_wrap(~ seq_name)
 ```
 
-And get more helpful facet panel title:
-
-```{r}
-d_chord_nms <- tibble::enframe(chord_names, name = "seq_no", value = "seq_nm") %>% 
-  mutate(seq_lbl = paste0(seq_no, ": ", seq_nm)) %>% 
-  mutate(seq_lbl = forcats::fct_inorder(seq_lbl))
-d_chord_nms
-```
+And get more helpful facet panel title by providing `sequence_names` argument to `highlight_key_sequence`:
 
 ```{r}
 keys_coords %>% 
-  highlight_key_sequence(key_sequence = key_seq) %>% 
-  left_join(d_chord_nms, by = "seq_no") %>% 
+  highlight_key_sequence(key_sequence = key_seq,
+                         sequence_names = chord_names) %>% 
+  ggpiano() + 
+  facet_wrap(~ seq_name)
+```
+
+And for exmple include `seq_no` in a new column `seq_lbl` (that are then converted to a factor with the right ordering):
+
+```{r}
+keys_coords %>% 
+  highlight_key_sequence(key_sequence = key_seq,
+                         sequence_names = chord_names) %>% 
+  mutate(seq_lbl = paste0(seq_name, " (#", seq_no, ")")) %>% 
+  mutate(seq_lbl = forcats::fct_inorder(seq_lbl)) %>% 
   ggpiano() + 
   facet_wrap(~ seq_lbl)
 ```
@@ -93,19 +98,19 @@ opt_res <- optim_min_dist_exhaustive(key_sequence = key_seq)
 
 ```{r}
 keys_coords %>% 
-  highlight_key_sequence(key_sequence = opt_res$best) %>% 
-  left_join(d_chord_nms, by = "seq_no") %>% 
+  highlight_key_sequence(key_sequence = opt_res$best,
+                         sequence_names = chord_names) %>% 
   ggpiano() + 
-  facet_wrap(~ seq_lbl) +
+  facet_wrap(~ seq_name) +
   labs(title = "Best inversions")
 ```
 
 ```{r}
 keys_coords %>% 
-  highlight_key_sequence(key_sequence = opt_res$worst) %>% 
-  left_join(d_chord_nms, by = "seq_no") %>% 
+  highlight_key_sequence(key_sequence = opt_res$best,
+                         sequence_names = chord_names) %>% 
   ggpiano() + 
-  facet_wrap(~ seq_lbl) +
+  facet_wrap(~ seq_name) +
   labs(title = "Worst inversions")
 ```
 

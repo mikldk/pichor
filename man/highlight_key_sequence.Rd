@@ -4,20 +4,26 @@
 \alias{highlight_key_sequence}
 \title{Highlight key sequence}
 \usage{
-highlight_key_sequence(data, key_sequence, new_color = "lightblue",
-  keep_color = "lightgrey")
+highlight_key_sequence(data, key_sequence, sequence_names = NULL,
+  new_color = "lightblue", keep_color = "lightgrey",
+  remove_color = "white")
 }
 \arguments{
 \item{data}{data with key coordinates, e.g. from \link{keys_coords}}
 
 \item{key_sequence}{list of vector with key numbers, note that they can be greater than 12}
 
+\item{sequence_names}{names of each element in \code{key_sequence}}
+
 \item{new_color}{highlight color for new keys}
 
 \item{keep_color}{highlight color for keys kept at same position}
+
+\item{remove_color}{highlight color for removed keys}
 }
 \value{
-A new dataset with a new column, \code{seq_no}, that can be used in e.g. plotting
+A new dataset with two new columns: \code{seq_no}, that can be used in e.g. plotting,
+and \code{seq_name} that is either \code{seq_no} of \code{sequence_names} if provided.
 }
 \description{
 Highlight key sequence

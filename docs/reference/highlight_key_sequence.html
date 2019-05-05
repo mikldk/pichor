@@ -126,8 +126,9 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>highlight_key_sequence</span>(<span class='no'>data</span>, <span class='no'>key_sequence</span>, <span class='kw'>new_color</span> <span class='kw'>=</span> <span class='st'>"lightblue"</span>,
-  <span class='kw'>keep_color</span> <span class='kw'>=</span> <span class='st'>"lightgrey"</span>)</pre>
+    <pre class="usage"><span class='fu'>highlight_key_sequence</span>(<span class='no'>data</span>, <span class='no'>key_sequence</span>, <span class='kw'>sequence_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>new_color</span> <span class='kw'>=</span> <span class='st'>"lightblue"</span>, <span class='kw'>keep_color</span> <span class='kw'>=</span> <span class='st'>"lightgrey"</span>,
+  <span class='kw'>remove_color</span> <span class='kw'>=</span> <span class='st'>"white"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -141,6 +142,10 @@
       <td><p>list of vector with key numbers, note that they can be greater than 12</p></td>
     </tr>
     <tr>
+      <th>sequence_names</th>
+      <td><p>names of each element in <code>key_sequence</code></p></td>
+    </tr>
+    <tr>
       <th>new_color</th>
       <td><p>highlight color for new keys</p></td>
     </tr>
@@ -148,11 +153,16 @@
       <th>keep_color</th>
       <td><p>highlight color for keys kept at same position</p></td>
     </tr>
+    <tr>
+      <th>remove_color</th>
+      <td><p>highlight color for removed keys</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A new dataset with a new column, <code>seq_no</code>, that can be used in e.g. plotting</p>
+    <p>A new dataset with two new columns: <code>seq_no</code>, that can be used in e.g. plotting,
+and <code>seq_name</code> that is either <code>seq_no</code> of <code>sequence_names</code> if provided.</p>
     
 
   </div>
