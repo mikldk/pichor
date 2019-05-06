@@ -84,7 +84,7 @@ test_that("construct_chord_raw()", {
   expect_equal(chd$root_key, 1)
   expect_equal(chd$other_keys, cumsum(c(4, 3))+chd$root_key)
   
-  expect_equal(as.character(chd), "C chord with tones E, G")
+  expect_equal(as.character(chd), "C chord with tones C, E, G")
   expect_equal(as.character(chd, brief = TRUE), "C")
 })
 
@@ -94,7 +94,7 @@ test_that("construct_chord_major()", {
   expect_equal(chd$root_key, 1)
   expect_equal(chd$other_keys, cumsum(c(4, 3))+chd$root_key)
   
-  expect_equal(as.character(chd), "C chord (major) with tones E, G")
+  expect_equal(as.character(chd), "C chord (major) with tones C, E, G")
   expect_equal(as.character(chd, brief = TRUE), "C")
 })
 
@@ -104,7 +104,7 @@ test_that("construct_chord_minor()", {
   expect_equal(chd$root_key, 1)
   expect_equal(chd$other_keys, cumsum(c(3, 4))+chd$root_key)
   
-  expect_equal(as.character(chd), "Cm chord (minor) with tones D#/Eb, G")
+  expect_equal(as.character(chd), "Cm chord (minor) with tones C, D#/Eb, G")
   expect_equal(as.character(chd, brief = TRUE), "Cm")
 })
 
