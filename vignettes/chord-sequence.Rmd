@@ -115,3 +115,34 @@ keys_coords %>%
 ```
 
 
+
+# Bigger example
+
+```{r}
+chords <- list(
+  list(chord = construct_chord_major("G"), 
+       highest_tone = "G"),
+  
+  list(chord = construct_chord_minor("B"), 
+       highest_tone = "F#"),
+  
+  list(chord = construct_chord_major("C"), 
+       highest_tone = "E"),
+  
+  list(chord = construct_chord_major("G"), 
+       highest_tone = "D")
+)
+```
+
+```{r}
+chord_keys <- lapply(chords, function(x) get_keys_highest_tone(x$chord, x$highest_tone))
+chord_names <- lapply(chords, function(x) paste0(
+  as.character(x$chord, brief = TRUE), 
+  " with ", x$highest_tone, " highest"))
+
+keys_coords %>% 
+  highlight_key_sequence(key_sequence = chord_keys,
+                         sequence_names = chord_names) %>% 
+  ggpiano() + 
+  facet_wrap(~ seq_name)
+```

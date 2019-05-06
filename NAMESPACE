@@ -2,7 +2,9 @@
 
 S3method(as.character,pichor_chord)
 S3method(print,pichor_chord)
+export(construct_chord_dominant_7)
 export(construct_chord_major)
+export(construct_chord_major_7)
 export(construct_chord_minor)
 export(construct_chord_raw)
 export(get_key)

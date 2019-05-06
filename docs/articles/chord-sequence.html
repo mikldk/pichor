@@ -56,6 +56,9 @@
       <a href="../articles/chord-sequence.html">Chord sequence</a>
     </li>
     <li>
+      <a href="../articles/constructing-chords.html">Constructing chords</a>
+    </li>
+    <li>
       <a href="../articles/example-chart.html">Example chart</a>
     </li>
     <li>
@@ -82,7 +85,7 @@
       <h1>Chord sequence</h1>
                         <h4 class="author">Mikkel Meyer Andersen</h4>
             
-            <h4 class="date">2019-05-05</h4>
+            <h4 class="date">2019-05-06</h4>
       
       
       <div class="hidden name"><code>chord-sequence.Rmd</code></div>
@@ -117,25 +120,25 @@
 <a class="sourceLine" id="cb3-7" title="7">               <span class="kw"><a href="../reference/construct_chord_major.html">construct_chord_major</a></span>(<span class="st">"C"</span>))</a>
 <a class="sourceLine" id="cb3-8" title="8">chords</a>
 <a class="sourceLine" id="cb3-9" title="9"><span class="co">#&gt; [[1]]</span></a>
-<a class="sourceLine" id="cb3-10" title="10"><span class="co">#&gt; G chord (major) with tones B, D</span></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="co">#&gt; G chord (major) with tones G, B, D</span></a>
 <a class="sourceLine" id="cb3-11" title="11"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb3-12" title="12"><span class="co">#&gt; [[2]]</span></a>
-<a class="sourceLine" id="cb3-13" title="13"><span class="co">#&gt; D chord (major) with tones F#/Gb, A</span></a>
+<a class="sourceLine" id="cb3-13" title="13"><span class="co">#&gt; D chord (major) with tones D, F#/Gb, A</span></a>
 <a class="sourceLine" id="cb3-14" title="14"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb3-15" title="15"><span class="co">#&gt; [[3]]</span></a>
-<a class="sourceLine" id="cb3-16" title="16"><span class="co">#&gt; Em chord (minor) with tones G, B</span></a>
+<a class="sourceLine" id="cb3-16" title="16"><span class="co">#&gt; Em chord (minor) with tones E, G, B</span></a>
 <a class="sourceLine" id="cb3-17" title="17"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb3-18" title="18"><span class="co">#&gt; [[4]]</span></a>
-<a class="sourceLine" id="cb3-19" title="19"><span class="co">#&gt; C chord (major) with tones E, G</span></a>
+<a class="sourceLine" id="cb3-19" title="19"><span class="co">#&gt; C chord (major) with tones C, E, G</span></a>
 <a class="sourceLine" id="cb3-20" title="20"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb3-21" title="21"><span class="co">#&gt; [[5]]</span></a>
-<a class="sourceLine" id="cb3-22" title="22"><span class="co">#&gt; G chord (major) with tones B, D</span></a>
+<a class="sourceLine" id="cb3-22" title="22"><span class="co">#&gt; G chord (major) with tones G, B, D</span></a>
 <a class="sourceLine" id="cb3-23" title="23"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb3-24" title="24"><span class="co">#&gt; [[6]]</span></a>
-<a class="sourceLine" id="cb3-25" title="25"><span class="co">#&gt; D chord (major) with tones F#/Gb, A</span></a>
+<a class="sourceLine" id="cb3-25" title="25"><span class="co">#&gt; D chord (major) with tones D, F#/Gb, A</span></a>
 <a class="sourceLine" id="cb3-26" title="26"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb3-27" title="27"><span class="co">#&gt; [[7]]</span></a>
-<a class="sourceLine" id="cb3-28" title="28"><span class="co">#&gt; C chord (major) with tones E, G</span></a>
+<a class="sourceLine" id="cb3-28" title="28"><span class="co">#&gt; C chord (major) with tones C, E, G</span></a>
 <a class="sourceLine" id="cb3-29" title="29">chord_names &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/lapply">sapply</a></span>(chords, as.character, <span class="dt">brief =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">key_seq &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/lapply">lapply</a></span>(chords, get_keys)</a></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">keys_coords <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -181,6 +184,34 @@ And with an exhaustive approach that is only feasible for shorter sequences.</p>
 <a class="sourceLine" id="cb10-6" title="6"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/labs">labs</a></span>(<span class="dt">title =</span> <span class="st">"Worst inversions"</span>)</a></code></pre></div>
 <p><img src="chord-sequence_files/figure-html/unnamed-chunk-10-1.png" width="768"></p>
 </div>
+<div id="bigger-example" class="section level1">
+<h1 class="hasAnchor">
+<a href="#bigger-example" class="anchor"></a>Bigger example</h1>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">chords &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(</a>
+<a class="sourceLine" id="cb11-2" title="2">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">chord =</span> <span class="kw"><a href="../reference/construct_chord_major.html">construct_chord_major</a></span>(<span class="st">"G"</span>), </a>
+<a class="sourceLine" id="cb11-3" title="3">       <span class="dt">highest_tone =</span> <span class="st">"G"</span>),</a>
+<a class="sourceLine" id="cb11-4" title="4">  </a>
+<a class="sourceLine" id="cb11-5" title="5">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">chord =</span> <span class="kw"><a href="../reference/construct_chord_minor.html">construct_chord_minor</a></span>(<span class="st">"B"</span>), </a>
+<a class="sourceLine" id="cb11-6" title="6">       <span class="dt">highest_tone =</span> <span class="st">"F#"</span>),</a>
+<a class="sourceLine" id="cb11-7" title="7">  </a>
+<a class="sourceLine" id="cb11-8" title="8">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">chord =</span> <span class="kw"><a href="../reference/construct_chord_major.html">construct_chord_major</a></span>(<span class="st">"C"</span>), </a>
+<a class="sourceLine" id="cb11-9" title="9">       <span class="dt">highest_tone =</span> <span class="st">"E"</span>),</a>
+<a class="sourceLine" id="cb11-10" title="10">  </a>
+<a class="sourceLine" id="cb11-11" title="11">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">chord =</span> <span class="kw"><a href="../reference/construct_chord_major.html">construct_chord_major</a></span>(<span class="st">"G"</span>), </a>
+<a class="sourceLine" id="cb11-12" title="12">       <span class="dt">highest_tone =</span> <span class="st">"D"</span>)</a>
+<a class="sourceLine" id="cb11-13" title="13">)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">chord_keys &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/lapply">lapply</a></span>(chords, <span class="cf">function</span>(x) <span class="kw"><a href="../reference/get_keys_highest_tone.html">get_keys_highest_tone</a></span>(x<span class="op">$</span>chord, x<span class="op">$</span>highest_tone))</a>
+<a class="sourceLine" id="cb12-2" title="2">chord_names &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/lapply">lapply</a></span>(chords, <span class="cf">function</span>(x) <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(</a>
+<a class="sourceLine" id="cb12-3" title="3">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/character">as.character</a></span>(x<span class="op">$</span>chord, <span class="dt">brief =</span> <span class="ot">TRUE</span>), </a>
+<a class="sourceLine" id="cb12-4" title="4">  <span class="st">" with "</span>, x<span class="op">$</span>highest_tone, <span class="st">" highest"</span>))</a>
+<a class="sourceLine" id="cb12-5" title="5"></a>
+<a class="sourceLine" id="cb12-6" title="6">keys_coords <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-7" title="7"><span class="st">  </span><span class="kw"><a href="../reference/highlight_key_sequence.html">highlight_key_sequence</a></span>(<span class="dt">key_sequence =</span> chord_keys,</a>
+<a class="sourceLine" id="cb12-8" title="8">                         <span class="dt">sequence_names =</span> chord_names) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-9" title="9"><span class="st">  </span><span class="kw"><a href="../reference/ggpiano.html">ggpiano</a></span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-10" title="10"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/facet_wrap">facet_wrap</a></span>(<span class="op">~</span><span class="st"> </span>seq_name)</a></code></pre></div>
+<p><img src="chord-sequence_files/figure-html/unnamed-chunk-12-1.png" width="768"></p>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -191,6 +222,7 @@ And with an exhaustive approach that is only feasible for shorter sequences.</p>
 <li><a href="#minimal-example">Minimal example</a></li>
       <li><a href="#slightly-larger-example">Slightly larger example</a></li>
       <li><a href="#finding-better-inversions">Finding better inversions</a></li>
+      <li><a href="#bigger-example">Bigger example</a></li>
       </ul>
 </div>
       </div>

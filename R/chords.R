@@ -154,7 +154,7 @@ as.character.pichor_chord <- function(x, brief = FALSE, ...) {
   chord_type <- if (is.null(x$chord_type)) "" else paste0(" (", x$chord_type, ")")
 
   str <- paste0(x$root_tone, label_suffix, " chord", chord_type, " with tones ", 
-      paste0(x$other_tones, collapse = ", "))
+      paste0(x$all_tones, collapse = ", "))
   
   return(str)
 }
@@ -178,6 +178,42 @@ construct_chord_major <- function(root_tone) {
                              label_suffix = NULL)
   
   class(res) <- c("pichor_chord_major", "pichor_chord")
+  
+  return(res)
+}
+
+#' Get major 7th of chord
+#' 
+#' @param root_tone root tone of chord
+#' 
+#' @importFrom magrittr "%>%"
+#' @importFrom tibble tibble
+#' @export
+construct_chord_major_7 <- function(root_tone) {
+  res <- construct_chord_raw(root_tone = root_tone, 
+                             distances_rel = c(4L, 3L, 4L),
+                             chord_type = "major 7th",
+                             label_suffix = "maj7")
+  
+  class(res) <- c("pichor_chord_major_7", "pichor_chord")
+  
+  return(res)
+}
+
+#' Get dominant 7th of chord
+#' 
+#' @param root_tone root tone of chord
+#' 
+#' @importFrom magrittr "%>%"
+#' @importFrom tibble tibble
+#' @export
+construct_chord_dominant_7 <- function(root_tone) {
+  res <- construct_chord_raw(root_tone = root_tone, 
+                             distances_rel = c(4L, 3L, 3L),
+                             chord_type = "dominant 7th",
+                             label_suffix = "dom7")
+  
+  class(res) <- c("pichor_chord_dominant_7", "pichor_chord")
   
   return(res)
 }

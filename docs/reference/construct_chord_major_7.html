@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Highlight coord — highlight_chord • pichor</title>
+<title>Get major 7th of chord — construct_chord_major_7 • pichor</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Highlight coord — highlight_chord" />
+<meta property="og:title" content="Get major 7th of chord — construct_chord_major_7" />
 
-<meta property="og:description" content="Highlight coord" />
+<meta property="og:description" content="Get major 7th of chord" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -118,48 +118,27 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Highlight coord</h1>
+    <h1>Get major 7th of chord</h1>
     
-    <div class="hidden name"><code>highlight_chord.Rd</code></div>
+    <div class="hidden name"><code>construct_chord_major_7.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Highlight coord</p>
+    <p>Get major 7th of chord</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>highlight_chord</span>(<span class='no'>data</span>, <span class='no'>chord</span>, <span class='kw'>inversion</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>highest_tone</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"lightblue"</span>)</pre>
+    <pre class="usage"><span class='fu'>construct_chord_major_7</span>(<span class='no'>root_tone</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>data with key coordinates, e.g. from <a href='keys_coords.html'>keys_coords</a></p></td>
-    </tr>
-    <tr>
-      <th>chord</th>
-      <td><p>chord to highlight, e.g. from <code><a href='construct_chord_major.html'>construct_chord_major()</a></code> or <code><a href='construct_chord_raw.html'>construct_chord_raw()</a></code></p></td>
-    </tr>
-    <tr>
-      <th>inversion</th>
-      <td><p>inversion number</p></td>
-    </tr>
-    <tr>
-      <th>highest_tone</th>
-      <td><p>if inversion by highest tone is wanted</p></td>
-    </tr>
-    <tr>
-      <th>color</th>
-      <td><p>highlight color</p></td>
+      <th>root_tone</th>
+      <td><p>root tone of chord</p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>If <code>highest_tone</code> is provided, then <code>inversion</code> is ignored</p>
     
 
   </div>
@@ -167,9 +146,7 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#details">Details</a></li>
-          </ul>
+                </ul>
 
   </div>
 </div>

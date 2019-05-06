@@ -3,6 +3,7 @@ pkgdown: 1.3.0
 pkgdown_sha: ~
 articles:
   chord-sequence: chord-sequence.html
+  constructing-chords: constructing-chords.html
   example-chart: example-chart.html
   exhaustive-chart: exhaustive-chart.html
   introduction: introduction.html
