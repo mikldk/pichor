@@ -6,7 +6,7 @@
 \usage{
 highlight_key_sequence(data, key_sequence, sequence_names = NULL,
   new_color = "lightblue", keep_color = "lightgrey",
-  remove_color = "white")
+  remove_color = NULL)
 }
 \arguments{
 \item{data}{data with key coordinates, e.g. from \link{keys_coords}}
@@ -15,11 +15,11 @@ highlight_key_sequence(data, key_sequence, sequence_names = NULL,
 
 \item{sequence_names}{names of each element in \code{key_sequence}}
 
-\item{new_color}{highlight color for new keys}
+\item{new_color}{highlight color for new keys (\code{NULL} for disable)}
 
-\item{keep_color}{highlight color for keys kept at same position}
+\item{keep_color}{highlight color for keys kept at same position (\code{NULL} for disable)}
 
-\item{remove_color}{highlight color for removed keys}
+\item{remove_color}{highlight color for removed keys (\code{NULL} for disable)}
 }
 \value{
 A new dataset with two new columns: \code{seq_no}, that can be used in e.g. plotting,

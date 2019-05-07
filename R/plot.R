@@ -113,9 +113,9 @@ highlight_chord <- function(data, chord, inversion = 0L, highest_tone = NULL, co
 #' @param data data with key coordinates, e.g. from [keys_coords]
 #' @param key_sequence list of vector with key numbers, note that they can be greater than 12
 #' @param sequence_names names of each element in `key_sequence`
-#' @param new_color highlight color for new keys
-#' @param keep_color highlight color for keys kept at same position
-#' @param remove_color highlight color for removed keys
+#' @param new_color highlight color for new keys (`NULL` for disable)
+#' @param keep_color highlight color for keys kept at same position (`NULL` for disable)
+#' @param remove_color highlight color for removed keys (`NULL` for disable)
 #' 
 #' @return A new dataset with two new columns: `seq_no`, that can be used in e.g. plotting, 
 #' and `seq_name` that is either `seq_no` of `sequence_names` if provided.
@@ -131,7 +131,7 @@ highlight_key_sequence <- function(data,
                                    sequence_names = NULL,
                                    new_color = "lightblue", 
                                    keep_color = "lightgrey",
-                                   remove_color = "white") {
+                                   remove_color = NULL) {
   if (is.null(data) || !is(data, "pichor_key_koords")) {
     stop("data must be a pichor_key_koords")
   }
@@ -141,6 +141,12 @@ highlight_key_sequence <- function(data,
   key_sequence <- lapply(key_sequence, as.integer)
   stopifnot(length(key_sequence) >= 1L)
   stopifnot(length(key_sequence[[1L]]) >= 1L)
+  
+  print(remove_color)
+  stopifnot(is.null(new_color) || length(new_color) == 1L)
+  stopifnot(is.null(keep_color) || length(keep_color) == 1L)
+  stopifnot(is.null(remove_color) || length(remove_color) == 1L)
+  
   
   if ("seq_no" %in% colnames(data)) {
     stop("data already has column seq_no")
@@ -170,14 +176,34 @@ highlight_key_sequence <- function(data,
     keep_keys <- intersect(prev_seq, seq)
     new_keys <- setdiff(seq, keep_keys)
     removed_keys <- setdiff(prev_seq, seq)
+
+    newdata <- data
     
-    newdata <- data %>%
-      dplyr::mutate(key_color = dplyr::case_when(
-        key %in% keep_keys ~ keep_color,
-        key %in% new_keys ~ new_color,
-        key %in% removed_keys ~ remove_color,
-        TRUE ~ key_color
-      )) %>% 
+    if (!is.null(keep_color)) {
+      newdata <- newdata %>%
+        dplyr::mutate(key_color = dplyr::case_when(
+          key %in% keep_keys ~ keep_color,
+          TRUE ~ key_color
+        ))
+    }
+    
+    if (!is.null(new_color)) {
+      newdata <- newdata %>%
+        dplyr::mutate(key_color = dplyr::case_when(
+          key %in% new_keys ~ new_color,
+          TRUE ~ key_color
+        ))
+    }
+    
+    if (!is.null(remove_color)) {
+      newdata <- newdata %>%
+        dplyr::mutate(key_color = dplyr::case_when(
+          key %in% removed_keys ~ remove_color,
+          TRUE ~ key_color
+        ))
+    }
+    
+    newdata <- newdata %>%
       dplyr::mutate(label_color = case_when(
         key_color == "black" ~ "white",
         TRUE ~ "black")) %>% 

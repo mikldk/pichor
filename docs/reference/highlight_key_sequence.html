@@ -131,7 +131,7 @@
 
     <pre class="usage"><span class='fu'>highlight_key_sequence</span>(<span class='no'>data</span>, <span class='no'>key_sequence</span>, <span class='kw'>sequence_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>new_color</span> <span class='kw'>=</span> <span class='st'>"lightblue"</span>, <span class='kw'>keep_color</span> <span class='kw'>=</span> <span class='st'>"lightgrey"</span>,
-  <span class='kw'>remove_color</span> <span class='kw'>=</span> <span class='st'>"white"</span>)</pre>
+  <span class='kw'>remove_color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -150,15 +150,15 @@
     </tr>
     <tr>
       <th>new_color</th>
-      <td><p>highlight color for new keys</p></td>
+      <td><p>highlight color for new keys (<code>NULL</code> for disable)</p></td>
     </tr>
     <tr>
       <th>keep_color</th>
-      <td><p>highlight color for keys kept at same position</p></td>
+      <td><p>highlight color for keys kept at same position (<code>NULL</code> for disable)</p></td>
     </tr>
     <tr>
       <th>remove_color</th>
-      <td><p>highlight color for removed keys</p></td>
+      <td><p>highlight color for removed keys (<code>NULL</code> for disable)</p></td>
     </tr>
     </table>
     
