@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pichor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9015</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9020</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
       <h1>Constructing chords</h1>
                         <h4 class="author">Mikkel Meyer Andersen</h4>
             
-            <h4 class="date">2019-05-07</h4>
+            <h4 class="date">2019-07-28</h4>
       
       
       <div class="hidden name"><code>constructing-chords.Rmd</code></div>
@@ -114,15 +114,15 @@
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">Cmaj7 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/construct_chord_major_7.html">construct_chord_major_7</a></span>(<span class="dt">root_tone =</span> <span class="st">"C"</span>)</a>
 <a class="sourceLine" id="cb3-2" title="2">Cmaj7 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/get_keys_inversion.html">get_keys_inversion</a></span>(<span class="dt">inversion =</span> 2L)</a>
 <a class="sourceLine" id="cb3-3" title="3"><span class="co">#&gt; [1]  8 12 13 17</span></a>
-<a class="sourceLine" id="cb3-4" title="4">keys_coords <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-4" title="4">keys_chords <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb3-5" title="5"><span class="st">  </span><span class="kw"><a href="../reference/highlight_chord.html">highlight_chord</a></span>(Cmaj7) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb3-6" title="6"><span class="st">  </span><span class="kw"><a href="../reference/ggpiano.html">ggpiano</a></span>()</a></code></pre></div>
 <p><img src="constructing-chords_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">keys_coords <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">keys_chords <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb4-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/highlight_chord.html">highlight_chord</a></span>(Cmaj7, <span class="dt">inversion =</span> 1L) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb4-3" title="3"><span class="st">  </span><span class="kw"><a href="../reference/ggpiano.html">ggpiano</a></span>()</a></code></pre></div>
 <p><img src="constructing-chords_files/figure-html/unnamed-chunk-3-2.png" width="700"></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">keys_coords <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">keys_chords <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb5-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/highlight_chord.html">highlight_chord</a></span>(Cmaj7, <span class="dt">inversion =</span> 2L) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb5-3" title="3"><span class="st">  </span><span class="kw"><a href="../reference/ggpiano.html">ggpiano</a></span>()</a></code></pre></div>
 <p><img src="constructing-chords_files/figure-html/unnamed-chunk-3-3.png" width="700"></p>

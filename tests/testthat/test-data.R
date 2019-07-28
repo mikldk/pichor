@@ -1,10 +1,10 @@
 context("Data")
 
-test_that("keys_coords", {
-  expect_true(is(keys_coords, "pichor_key_koords"))
+test_that("keys_chords", {
+  expect_true(is(keys_chords, "pichor_key_koords"))
   
-  # dput(colnames(keys_coords))
-  expect_equal(colnames(keys_coords), 
+  # dput(colnames(keys_chords))
+  expect_equal(colnames(keys_chords), 
                c("key", "key_color", 
                  "xmin", "ymin", "xmax", "ymax", 
                  "layer", "tones", 

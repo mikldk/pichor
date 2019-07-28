@@ -1,8 +1,8 @@
-generate_keys_coords <- function() {
+generate_keys_chords <- function() {
   # Number of white keys
   N <- 14L
   
-  coords <- NULL
+  chords <- NULL
   
   white_keys <- 0L
   black_keys <- 0L
@@ -21,7 +21,7 @@ generate_keys_coords <- function() {
       start_x <- (white_keys-1)/N
       end_x <- white_keys/N
       
-      coords <- bind_rows(coords, 
+      chords <- bind_rows(chords, 
                       tibble(
                         key = i,
                         key_color = "white",
@@ -41,7 +41,7 @@ generate_keys_coords <- function() {
       start_x2 <- ((start_x + end_x) / 2) + 1/(4*N)
       end_x2 <- end_x + 1/(4*N)
 
-      coords <- bind_rows(coords, 
+      chords <- bind_rows(chords, 
                       tibble(
                         key = i,
                         key_color = "black",
@@ -55,12 +55,12 @@ generate_keys_coords <- function() {
     
   }
   
-  return(coords)
+  return(chords)
 }
 
 if (FALSE) {
   library(ggplot2)
-  d <- generate_keys_coords()
+  d <- generate_keys_chords()
   d
   ggplot(mapping = aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, 
                 group = key,
@@ -134,7 +134,7 @@ generate_sysdata <- function() {
   ###############################################################
   usethis::use_data(tone_properties,
                     internal = TRUE, overwrite = TRUE)
-  #usethis::use_data(tone_properties, keys_coords,
+  #usethis::use_data(tone_properties, keys_chords,
   #                  internal = TRUE, overwrite = TRUE)
   
   ###############################################################
@@ -146,8 +146,8 @@ generate_sysdata <- function() {
     dplyr::summarise(tones = list(tone),
                      label = paste0(tone, collapse = "\n"))
   
-  keys_coords_raw <- generate_keys_coords()
-  keys_coords <- keys_coords_raw %>% 
+  keys_chords_raw <- generate_keys_chords()
+  keys_chords <- keys_chords_raw %>% 
     dplyr::mutate(join_key = ((key - 1) %% 12) + 1) %>% 
     dplyr::left_join(d, by = c("join_key" = "key")) %>% 
     dplyr::select(-join_key) %>% 
@@ -158,8 +158,8 @@ generate_sysdata <- function() {
       TRUE ~ "black"))
   
   # Put here instead of where it's generated to ease development process
-  class(keys_coords) <- c("pichor_key_koords", class(keys_coords))
+  class(keys_chords) <- c("pichor_key_koords", class(keys_chords))
   
-  usethis::use_data(keys_coords, 
+  usethis::use_data(keys_chords, 
                     internal = FALSE, overwrite = TRUE)
 }

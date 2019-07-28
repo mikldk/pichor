@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">pichor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9015</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9020</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
       <h1>Chord sequence</h1>
                         <h4 class="author">Mikkel Meyer Andersen</h4>
             
-            <h4 class="date">2019-05-07</h4>
+            <h4 class="date">2019-07-28</h4>
       
       
       <div class="hidden name"><code>chord-sequence.Rmd</code></div>
@@ -101,10 +101,10 @@
 <div id="minimal-example" class="section level1">
 <h1 class="hasAnchor">
 <a href="#minimal-example" class="anchor"></a>Minimal example</h1>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">keys_coords <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">keys_chords <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb2-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/highlight_key_sequence.html">highlight_key_sequence</a></span>(<span class="dt">key_sequence =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>))) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb2-3" title="3"><span class="st">  </span><span class="kw"><a href="../reference/ggpiano.html">ggpiano</a></span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-4" title="4"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/facet_wrap">facet_wrap</a></span>(<span class="op">~</span><span class="st"> </span>seq_name)</a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span>(<span class="op">~</span><span class="st"> </span>seq_name)</a>
 <a class="sourceLine" id="cb2-5" title="5"><span class="co">#&gt; NULL</span></a></code></pre></div>
 <p><img src="chord-sequence_files/figure-html/unnamed-chunk-2-1.png" width="768"></p>
 </div>
@@ -142,28 +142,28 @@
 <a class="sourceLine" id="cb3-28" title="28"><span class="co">#&gt; C chord (major) with tones C, E, G</span></a>
 <a class="sourceLine" id="cb3-29" title="29">chord_names &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/lapply">sapply</a></span>(chords, as.character, <span class="dt">brief =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">key_seq &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/lapply">lapply</a></span>(chords, get_keys)</a></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">keys_coords <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">keys_chords <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb5-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/highlight_key_sequence.html">highlight_key_sequence</a></span>(<span class="dt">key_sequence =</span> key_seq) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb5-3" title="3"><span class="st">  </span><span class="kw"><a href="../reference/ggpiano.html">ggpiano</a></span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-4" title="4"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/facet_wrap">facet_wrap</a></span>(<span class="op">~</span><span class="st"> </span>seq_name)</a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span>(<span class="op">~</span><span class="st"> </span>seq_name)</a>
 <a class="sourceLine" id="cb5-5" title="5"><span class="co">#&gt; NULL</span></a></code></pre></div>
 <p><img src="chord-sequence_files/figure-html/unnamed-chunk-5-1.png" width="768"></p>
 <p>And get more helpful facet panel title by providing <code>sequence_names</code> argument to <code>highlight_key_sequence</code>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">keys_coords <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">keys_chords <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb6-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/highlight_key_sequence.html">highlight_key_sequence</a></span>(<span class="dt">key_sequence =</span> key_seq,</a>
 <a class="sourceLine" id="cb6-3" title="3">                         <span class="dt">sequence_names =</span> chord_names) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb6-4" title="4"><span class="st">  </span><span class="kw"><a href="../reference/ggpiano.html">ggpiano</a></span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb6-5" title="5"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/facet_wrap">facet_wrap</a></span>(<span class="op">~</span><span class="st"> </span>seq_name)</a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span>(<span class="op">~</span><span class="st"> </span>seq_name)</a>
 <a class="sourceLine" id="cb6-6" title="6"><span class="co">#&gt; NULL</span></a></code></pre></div>
 <p><img src="chord-sequence_files/figure-html/unnamed-chunk-6-1.png" width="768"></p>
 <p>And for exmple include <code>seq_no</code> in a new column <code>seq_lbl</code> (that are then converted to a factor with the right ordering):</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">keys_coords <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">keys_chords <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb7-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/highlight_key_sequence.html">highlight_key_sequence</a></span>(<span class="dt">key_sequence =</span> key_seq,</a>
 <a class="sourceLine" id="cb7-3" title="3">                         <span class="dt">sequence_names =</span> chord_names) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb7-4" title="4"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">seq_lbl =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(seq_name, <span class="st">" (#"</span>, seq_no, <span class="st">")"</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb7-5" title="5"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">seq_lbl =</span> forcats<span class="op">::</span><span class="kw"><a href="https://forcats.tidyverse.org/reference/fct_inorder.html">fct_inorder</a></span>(seq_lbl)) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb7-6" title="6"><span class="st">  </span><span class="kw"><a href="../reference/ggpiano.html">ggpiano</a></span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb7-7" title="7"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/facet_wrap">facet_wrap</a></span>(<span class="op">~</span><span class="st"> </span>seq_lbl)</a>
+<a class="sourceLine" id="cb7-7" title="7"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span>(<span class="op">~</span><span class="st"> </span>seq_lbl)</a>
 <a class="sourceLine" id="cb7-8" title="8"><span class="co">#&gt; NULL</span></a></code></pre></div>
 <p><img src="chord-sequence_files/figure-html/unnamed-chunk-7-1.png" width="768"></p>
 </div>
@@ -173,20 +173,20 @@
 <p>Currently only one method is available for finding better inversions. It is minimising the distances between keys in consecutive chords, where distance is the number of keys not used anymore plus new keys.<br>
 And with an exhaustive approach that is only feasible for shorter sequences.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">opt_res &lt;-<span class="st"> </span><span class="kw"><a href="../reference/optim_min_dist_exhaustive.html">optim_min_dist_exhaustive</a></span>(<span class="dt">key_sequence =</span> key_seq)</a></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">keys_coords <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">keys_chords <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb9-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/highlight_key_sequence.html">highlight_key_sequence</a></span>(<span class="dt">key_sequence =</span> opt_res<span class="op">$</span>best,</a>
 <a class="sourceLine" id="cb9-3" title="3">                         <span class="dt">sequence_names =</span> chord_names) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb9-4" title="4"><span class="st">  </span><span class="kw"><a href="../reference/ggpiano.html">ggpiano</a></span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-5" title="5"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/facet_wrap">facet_wrap</a></span>(<span class="op">~</span><span class="st"> </span>seq_name) <span class="op">+</span></a>
-<a class="sourceLine" id="cb9-6" title="6"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/labs">labs</a></span>(<span class="dt">title =</span> <span class="st">"Best inversions"</span>)</a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span>(<span class="op">~</span><span class="st"> </span>seq_name) <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-6" title="6"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="dt">title =</span> <span class="st">"Best inversions"</span>)</a>
 <a class="sourceLine" id="cb9-7" title="7"><span class="co">#&gt; NULL</span></a></code></pre></div>
 <p><img src="chord-sequence_files/figure-html/unnamed-chunk-9-1.png" width="768"></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">keys_coords <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb10-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/highlight_key_sequence.html">highlight_key_sequence</a></span>(<span class="dt">key_sequence =</span> opt_res<span class="op">$</span>best,</a>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">keys_chords <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/highlight_key_sequence.html">highlight_key_sequence</a></span>(<span class="dt">key_sequence =</span> opt_res<span class="op">$</span>worst,</a>
 <a class="sourceLine" id="cb10-3" title="3">                         <span class="dt">sequence_names =</span> chord_names) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb10-4" title="4"><span class="st">  </span><span class="kw"><a href="../reference/ggpiano.html">ggpiano</a></span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb10-5" title="5"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/facet_wrap">facet_wrap</a></span>(<span class="op">~</span><span class="st"> </span>seq_name) <span class="op">+</span></a>
-<a class="sourceLine" id="cb10-6" title="6"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/labs">labs</a></span>(<span class="dt">title =</span> <span class="st">"Worst inversions"</span>)</a>
+<a class="sourceLine" id="cb10-5" title="5"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span>(<span class="op">~</span><span class="st"> </span>seq_name) <span class="op">+</span></a>
+<a class="sourceLine" id="cb10-6" title="6"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="dt">title =</span> <span class="st">"Worst inversions"</span>)</a>
 <a class="sourceLine" id="cb10-7" title="7"><span class="co">#&gt; NULL</span></a></code></pre></div>
 <p><img src="chord-sequence_files/figure-html/unnamed-chunk-10-1.png" width="768"></p>
 </div>
@@ -211,11 +211,11 @@ And with an exhaustive approach that is only feasible for shorter sequences.</p>
 <a class="sourceLine" id="cb12-3" title="3">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/character">as.character</a></span>(x<span class="op">$</span>chord, <span class="dt">brief =</span> <span class="ot">TRUE</span>), </a>
 <a class="sourceLine" id="cb12-4" title="4">  <span class="st">" with "</span>, x<span class="op">$</span>highest_tone, <span class="st">" highest"</span>))</a>
 <a class="sourceLine" id="cb12-5" title="5"></a>
-<a class="sourceLine" id="cb12-6" title="6">keys_coords <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-6" title="6">keys_chords <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb12-7" title="7"><span class="st">  </span><span class="kw"><a href="../reference/highlight_key_sequence.html">highlight_key_sequence</a></span>(<span class="dt">key_sequence =</span> chord_keys,</a>
 <a class="sourceLine" id="cb12-8" title="8">                         <span class="dt">sequence_names =</span> chord_names) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb12-9" title="9"><span class="st">  </span><span class="kw"><a href="../reference/ggpiano.html">ggpiano</a></span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb12-10" title="10"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/facet_wrap">facet_wrap</a></span>(<span class="op">~</span><span class="st"> </span>seq_name)</a>
+<a class="sourceLine" id="cb12-10" title="10"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span>(<span class="op">~</span><span class="st"> </span>seq_name)</a>
 <a class="sourceLine" id="cb12-11" title="11"><span class="co">#&gt; NULL</span></a></code></pre></div>
 <p><img src="chord-sequence_files/figure-html/unnamed-chunk-12-1.png" width="768"></p>
 </div>

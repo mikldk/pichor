@@ -58,7 +58,7 @@ test_that("get_tones()", {
   expect_equal(get_tones(2, sep = "\n", as_string = TRUE), "C#\nDb")
   expect_equal(get_tones(2, as_string = FALSE), c("C#", "Db"))
   
-  keys <- keys_coords %>% 
+  keys <- keys_chords %>% 
     dplyr::pull(key) %>% 
     unique()
   
@@ -141,13 +141,13 @@ test_that("get_keys_next_inversion()", {
 
 test_that("highlight_chord()", {
   chd1 <- construct_chord_major("D")
-  d1 <- keys_coords %>% 
+  d1 <- keys_chords %>% 
     highlight_chord(chord = chd1, highest_tone = "F#", color = "blue") %>% 
     filter(key_color == "blue")
   expect_equal(get_keys_inversion(chd1, 2L), d1 %>% pull(key))
   
   chd2 <- construct_chord_major("G")
-  d2 <- keys_coords %>% 
+  d2 <- keys_chords %>% 
     highlight_chord(chord = chd2, highest_tone = "B", color = "blue") %>% 
     filter(key_color == "blue")
   expect_equal(get_keys_inversion(chd2, 2L), d2 %>% pull(key))

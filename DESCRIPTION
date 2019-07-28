@@ -2,7 +2,7 @@ Package: pichor
 Type: Package
 Title: Piano chords in R
 Description: Utilities for working with piano chords in R. Including inversions.
-Version: 0.0.0.9015
+Version: 0.0.0.9020
 Authors@R: c(
     person(given = "Mikkel Meyer", family = "Andersen", 
         email = "mikl@math.aau.dk", role = c("aut", "cre"))

@@ -1,6 +1,6 @@
 #' Plot piano
 #' 
-#' @param data data to plot, default `keys_coords` which is a piano
+#' @param data data to plot, default `keys_chords` which is a piano
 #' @param labels whether to show key labels
 #' @param \dots Currently not used
 #' 
@@ -8,7 +8,7 @@
 #' @importFrom dplyr pull 
 #' 
 #' @export
-ggpiano <- function(data = keys_coords, labels = FALSE, ...) {
+ggpiano <- function(data = keys_chords, labels = FALSE, ...) {
   envir <- parent.frame()
   
   p <- ggplot2::ggplot(data = data, environment = envir)
@@ -41,7 +41,7 @@ ggpiano <- function(data = keys_coords, labels = FALSE, ...) {
 
 #' Highlight keys
 #' 
-#' @param data data with key coordinates, e.g. from [keys_coords]
+#' @param data data with key coordinates, e.g. from [keys_chords]
 #' @param keys key numbers, note that they can be greater than 12
 #' @param color highlight color
 #' 
@@ -73,9 +73,9 @@ highlight_keys <- function(data, keys, color = "lightblue") {
   return(newdata)
 }
 
-#' Highlight coord
+#' Highlight chord
 #' 
-#' @param data data with key coordinates, e.g. from [keys_coords]
+#' @param data data with key coordinates, e.g. from [keys_chords]
 #' @param chord chord to highlight, e.g. from [construct_chord_major()] or [construct_chord_raw()]
 #' @param inversion inversion number
 #' @param highest_tone if inversion by highest tone is wanted
@@ -110,7 +110,7 @@ highlight_chord <- function(data, chord, inversion = 0L, highest_tone = NULL, co
 
 #' Highlight key sequence
 #' 
-#' @param data data with key coordinates, e.g. from [keys_coords]
+#' @param data data with key coordinates, e.g. from [keys_chords]
 #' @param key_sequence list of vector with key numbers, note that they can be greater than 12
 #' @param sequence_names names of each element in `key_sequence`
 #' @param new_color highlight color for new keys (`NULL` for disable)

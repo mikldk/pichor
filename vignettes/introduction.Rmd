@@ -28,26 +28,26 @@ library(pichor)
 Built-in data with information about some of the keys on a piano:
 
 ```{r}
-keys_coords
+keys_chords
 ```
 
 Details for drawing a diagram of a piano:
 
 
 ```{r}
-ggpiano(keys_coords)
+ggpiano(keys_chords)
 ```
 
 Add key labels:
 
 ```{r}
-ggpiano(keys_coords, labels = TRUE)
+ggpiano(keys_chords, labels = TRUE)
 ```
 
 Highlight certain keys:
 
 ```{r}
-keys_coords %>% 
+keys_chords %>% 
   highlight_keys(keys = c(7, 10, 14)) %>%
   ggpiano(labels = TRUE)
 ```
@@ -68,10 +68,10 @@ get_keys_highest_tone(chord = chrd_Fsm, highest_tone = "A")
 Highlight chords:
 
 ```{r}
-keys_coords %>% 
+keys_chords %>% 
   highlight_chord(chord = chrd_Fsm) %>%  # root form by default
   ggpiano()
-keys_coords %>% 
+keys_chords %>% 
   highlight_chord(chord = chrd_Fsm, highest_tone = "A") %>% 
   ggpiano()
 ```
@@ -90,13 +90,13 @@ get_keys_inversion(chord = chrd_Bm, inversion = 2)
 Highlight chord inversions:
 
 ```{r}
-keys_coords %>% 
+keys_chords %>% 
   highlight_chord(chord = chrd_Bm, inversion = 0L) %>% 
   ggpiano()
-keys_coords %>% 
+keys_chords %>% 
   highlight_chord(chord = chrd_Bm, inversion = 1L) %>% 
   ggpiano()
-keys_coords %>% 
+keys_chords %>% 
   highlight_chord(chord = chrd_Bm, inversion = 2L) %>% 
   ggpiano()
 ```

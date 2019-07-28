@@ -40,13 +40,13 @@ Any of these can be dealt with, e.g. getting keys for root form, an inversion an
 ```{r}
 Cmaj7 <- construct_chord_major_7(root_tone = "C")
 Cmaj7 %>% get_keys_inversion(inversion = 2L)
-keys_coords %>% 
+keys_chords %>% 
   highlight_chord(Cmaj7) %>% 
   ggpiano()
-keys_coords %>% 
+keys_chords %>% 
   highlight_chord(Cmaj7, inversion = 1L) %>% 
   ggpiano()
-keys_coords %>% 
+keys_chords %>% 
   highlight_chord(Cmaj7, inversion = 2L) %>% 
   ggpiano()
 ```

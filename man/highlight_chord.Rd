@@ -2,13 +2,13 @@
 % Please edit documentation in R/plot.R
 \name{highlight_chord}
 \alias{highlight_chord}
-\title{Highlight coord}
+\title{Highlight chord}
 \usage{
 highlight_chord(data, chord, inversion = 0L, highest_tone = NULL,
   color = "lightblue")
 }
 \arguments{
-\item{data}{data with key coordinates, e.g. from \link{keys_coords}}
+\item{data}{data with key coordinates, e.g. from \link{keys_chords}}
 
 \item{chord}{chord to highlight, e.g. from \code{\link[=construct_chord_major]{construct_chord_major()}} or \code{\link[=construct_chord_raw]{construct_chord_raw()}}}
 
@@ -19,7 +19,7 @@ highlight_chord(data, chord, inversion = 0L, highest_tone = NULL,
 \item{color}{highlight color}
 }
 \description{
-Highlight coord
+Highlight chord
 }
 \details{
 If \code{highest_tone} is provided, then \code{inversion} is ignored

@@ -29,7 +29,7 @@ library(pichor)
 # Minimal example
 
 ```{r, fig.height = 2}
-keys_coords %>% 
+keys_chords %>% 
   highlight_key_sequence(key_sequence = list(c(1, 2, 3), c(2, 3, 4))) %>% 
   ggpiano() + 
   facet_wrap(~ seq_name)
@@ -56,7 +56,7 @@ key_seq <- lapply(chords, get_keys)
 ```
 
 ```{r}
-keys_coords %>% 
+keys_chords %>% 
   highlight_key_sequence(key_sequence = key_seq) %>% 
   ggpiano() + 
   facet_wrap(~ seq_name)
@@ -65,7 +65,7 @@ keys_coords %>%
 And get more helpful facet panel title by providing `sequence_names` argument to `highlight_key_sequence`:
 
 ```{r}
-keys_coords %>% 
+keys_chords %>% 
   highlight_key_sequence(key_sequence = key_seq,
                          sequence_names = chord_names) %>% 
   ggpiano() + 
@@ -75,7 +75,7 @@ keys_coords %>%
 And for exmple include `seq_no` in a new column `seq_lbl` (that are then converted to a factor with the right ordering):
 
 ```{r}
-keys_coords %>% 
+keys_chords %>% 
   highlight_key_sequence(key_sequence = key_seq,
                          sequence_names = chord_names) %>% 
   mutate(seq_lbl = paste0(seq_name, " (#", seq_no, ")")) %>% 
@@ -97,7 +97,7 @@ opt_res <- optim_min_dist_exhaustive(key_sequence = key_seq)
 ```
 
 ```{r}
-keys_coords %>% 
+keys_chords %>% 
   highlight_key_sequence(key_sequence = opt_res$best,
                          sequence_names = chord_names) %>% 
   ggpiano() + 
@@ -106,8 +106,8 @@ keys_coords %>%
 ```
 
 ```{r}
-keys_coords %>% 
-  highlight_key_sequence(key_sequence = opt_res$best,
+keys_chords %>% 
+  highlight_key_sequence(key_sequence = opt_res$worst,
                          sequence_names = chord_names) %>% 
   ggpiano() + 
   facet_wrap(~ seq_name) +
@@ -140,7 +140,7 @@ chord_names <- lapply(chords, function(x) paste0(
   as.character(x$chord, brief = TRUE), 
   " with ", x$highest_tone, " highest"))
 
-keys_coords %>% 
+keys_chords %>% 
   highlight_key_sequence(key_sequence = chord_keys,
                          sequence_names = chord_names) %>% 
   ggpiano() + 

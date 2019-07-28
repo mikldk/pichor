@@ -15,18 +15,7 @@
 #'   \item{label_y}{coordinate}
 #'   \item{label_color}{the label's color}
 #' }
-"keys_coords"
-
-#' Get coordinates to draw a piano
-#'
-#' @importFrom dplyr select left_join mutate group_by summarise
-#' @importFrom magrittr "%>%"
-#' 
-#' @export
-get_keys_coords <- function() {
-  .Deprecated("keys_coords")
-  return(keys_coords)
-}
+"keys_chords"
 
 print.pichor_key_koords <- function(x, ...) {
   cat("Coordinates for some of a piano's keys:\n")

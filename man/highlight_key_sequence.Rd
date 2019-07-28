@@ -9,7 +9,7 @@ highlight_key_sequence(data, key_sequence, sequence_names = NULL,
   remove_color = NULL)
 }
 \arguments{
-\item{data}{data with key coordinates, e.g. from \link{keys_coords}}
+\item{data}{data with key coordinates, e.g. from \link{keys_chords}}
 
 \item{key_sequence}{list of vector with key numbers, note that they can be greater than 12}
 
