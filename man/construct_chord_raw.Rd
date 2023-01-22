@@ -4,8 +4,12 @@
 \alias{construct_chord_raw}
 \title{Construct a chord by root tone and key distances}
 \usage{
-construct_chord_raw(root_tone, distances_rel, chord_type = NULL,
-  label_suffix = NULL)
+construct_chord_raw(
+  root_tone,
+  distances_rel,
+  chord_type = NULL,
+  label_suffix = NULL
+)
 }
 \arguments{
 \item{root_tone}{root tone of chord}

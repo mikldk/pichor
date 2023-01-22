@@ -4,7 +4,8 @@
 \name{keys_chords}
 \alias{keys_chords}
 \title{Coordinates to draw a piano}
-\format{A data frame with 53940 rows and 10 variables:
+\format{
+A data frame with 53940 rows and 10 variables:
 \describe{
 \item{key}{key number}
 \item{key_color}{color of the key}
@@ -18,7 +19,8 @@
 \item{label_x}{coordinate}
 \item{label_y}{coordinate}
 \item{label_color}{the label's color}
-}}
+}
+}
 \usage{
 keys_chords
 }

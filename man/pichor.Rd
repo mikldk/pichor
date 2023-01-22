@@ -3,7 +3,6 @@
 \docType{package}
 \name{pichor}
 \alias{pichor}
-\alias{pichor-package}
 \title{\code{pichor} package}
 \description{
 Piano chords in R

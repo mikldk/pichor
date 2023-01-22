@@ -7,7 +7,7 @@
 get_keys_inversion(chord, inversion = 0L)
 }
 \arguments{
-\item{chord}{chord created by e.g. \code{construct_chord_*()}, i.e. \code{\link[=construct_chord_raw]{construct_chord_raw()}},
+\item{chord}{chord created by e.g. \verb{construct_chord_*()}, i.e. \code{\link[=construct_chord_raw]{construct_chord_raw()}},
 \code{\link[=construct_chord_major]{construct_chord_major()}}, \code{\link[=construct_chord_minor]{construct_chord_minor()}}}
 
 \item{inversion}{Inversion to get}

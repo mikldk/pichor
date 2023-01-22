@@ -4,8 +4,13 @@
 \alias{highlight_chord}
 \title{Highlight chord}
 \usage{
-highlight_chord(data, chord, inversion = 0L, highest_tone = NULL,
-  color = "lightblue")
+highlight_chord(
+  data,
+  chord,
+  inversion = 0L,
+  highest_tone = NULL,
+  color = "lightblue"
+)
 }
 \arguments{
 \item{data}{data with key coordinates, e.g. from \link{keys_chords}}

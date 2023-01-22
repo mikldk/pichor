@@ -4,9 +4,14 @@
 \alias{highlight_key_sequence}
 \title{Highlight key sequence}
 \usage{
-highlight_key_sequence(data, key_sequence, sequence_names = NULL,
-  new_color = "lightblue", keep_color = "lightgrey",
-  remove_color = NULL)
+highlight_key_sequence(
+  data,
+  key_sequence,
+  sequence_names = NULL,
+  new_color = "lightblue",
+  keep_color = "lightgrey",
+  remove_color = NULL
+)
 }
 \arguments{
 \item{data}{data with key coordinates, e.g. from \link{keys_chords}}
